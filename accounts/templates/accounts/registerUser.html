@@ -46,10 +46,11 @@
 									<div id="signup_box" class="tab-pane fade in active">
 										<div class="scetion-title">
 											<h2 class="text-center" style="margin-bottom: 0;">Registration</h2>
-											<h4 class="text-center" style="margin-bottom: 0;">WELCOME TO DILISH DISH ZONE</h4>
+											<h4 class="text-center" style="margin-bottom: 0;">WELCOME TO DELISH DISH ZONE</h4>
 											<p class="text-center">Please fill this form to get yourself onboarded in the DDZONE marketplace.</p>
 
 										</div>
+										 <hr>
 										<div class="input-info">
 											<div class="row">
 												<form action="{% url 'accounts:registerUser' %}" class="wp-user-form webkit"  method="POST">
@@ -104,15 +105,6 @@
 														</div>
 													</div>
 
-													<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-														<div class="checkbox-area">
-
-															<p style="color: red;">{{form.non_field_errors}}</p>
-														</div>
-													</div>
-
-
-
 													<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
 														<div class="shortcode-ajax-signup-button input-button-loader">
 															<input type="submit" class="cs-bgcolor user-submit acc-submit" value="Create Account">
@@ -128,8 +120,13 @@
 														</div>
 													</div>
 
+													<div class="errorlist">
+
+														<p style="color: red;">{{form.non_field_errors}}</p>
+													</div>
+
 													<div class="row">
-														<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+														<div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
 															<!-- Load message -->
 															{% include 'includes/alerts.html' %}
 														</div>
