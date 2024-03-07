@@ -1,10 +1,12 @@
 {% if messages %}
     {% for message in messages %}
-        <div style="background-color: rgba(235,104,37,0.5); color: #0f0f0f" class="alert alert-{{message.tags}} show-notification" role="alert">
-            <button style="margin-top: -2px;" type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true"></span>
+        <div style="background-color: #FFFFCC; color: #0f0f0f" class="alert alert-{{message.tags}} show-notification" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
             </button>
            {{message}}
         </div>
     {% endfor %}
 {% endif %}
+
+

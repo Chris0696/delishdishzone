@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+<h3>Welcome {{user.username}}</h3>
+
+<p>You are a {{user.get_role}}</p>
+
+{% include 'includes/alerts.html' %}
+
+{% endblock content %}

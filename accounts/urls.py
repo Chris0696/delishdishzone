@@ -1,14 +1,19 @@
-from django.contrib import admin
-from django.urls import path, include
-from . import views
-from django.conf import settings
-from django.conf.urls.static import static
+from django.urls import path
+from .views import customers, restaurants, users
+
 
 app_name = 'accounts'
 
 urlpatterns = [
-    path('registerUser/', views.registerUser, name='registerUser'),
-    path('register-vendor/', views.registerVendor, name='registerVendor')
+    path('registerUser/', customers.registerUser, name='registerUser'),
+    path('register-vendor/', restaurants.registerVendor, name='registerVendor'),
+
+    path('login/', users.loginUser, name='loginUser'),
+    path('logout/', users.logoutUser, name='logout'),
+
+    path('myAccount/', users.myAccount, name='myAccount'),
+    path('custDashboard/', users.custDashboard, name='custDashboard'),
+    path('vendorDashboard/', users.vendorDashboard, name='vendorDashboard'),
 
 ]
 

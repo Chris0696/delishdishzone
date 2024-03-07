@@ -18,7 +18,7 @@
 								<p class="foodbakery-dev-login-top-msg"></p>
 								<div class="cs-login-pbox">
 									<div class="status status-message"></div>
-									<form method="post" class="wp-user-form webkit" id="ControlForm_43687">
+									<form action="{% url 'accounts:loginUser' %}" class="wp-user-form webkit" id="ControlForm_43687"  method="post" enctype="multipart/form-data">
 										{% csrf_token %}
 										<div class="cs-demo-login">
 											<div class="cs-demo-login-lable text-color">Click to login with Demo User
@@ -35,24 +35,25 @@
 										</div>
 										<div class="input-filed">
 											<i class="icon-user4"></i>
-											<input type="text" placeholder="Username">
+											<input type="email" name="email" placeholder="Enter your email address">
 										</div>
 										<div class="input-filed">
 											<i class="icon-unlock-alt"></i>
-											<input type="password" value="Password">
+											<input type="password" name="password" placeholder="Enter your password">
 										</div>
 										<div class="forget-password">
 											<a data-toggle="tab" href="#user-password" class="cs-forgot-switch forgot-switch">Forgot Password?</a>
 										</div>
 										<div class="input-filed input-field-btn">
 											<div class="ajax-login-button input-button-loader">
-												<input type="button" class="cs-bgcolor" value="Log in">
+												<input type="submit" class="cs-bgcolor" value="Log in">
 											</div>
 										</div>
 									</form>
 									<div class="signin-tab-link forget-password">
 										New Here?
-										<a data-toggle="tab" href="#user-register" class="foodbakery-dev-login-box-btn forgot-switch">Signup</a>
+										<a href="{% url 'accounts:registerUser' %}" class="foodbakery-dev-login-box-btn forgot-switch">Register here</a>
+
 									</div>
 									<div class="footer-element comment-form-social-connect social_login_ui ">
 										<div class="social-media">

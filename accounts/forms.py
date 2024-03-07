@@ -24,7 +24,12 @@ class UserForm(forms.ModelForm):
         password = cleaned_data.get('password')
         confirm_password = cleaned_data.get('confirm_password')
 
-        if password != confirm_password:
+        if password == confirm_password:
+            if len(password) <= 8:
+                raise forms.ValidationError(
+                    "Passwords must be at least 8 characters."
+                )
+        else:
             raise forms.ValidationError(
-                "Passwords does'nt match"
+                "Passwords does'nt match."
             )

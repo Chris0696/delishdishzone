@@ -14,7 +14,7 @@ class UserManager(BaseUserManager):
             raise ValueError('Users must have an username')
 
         user = self.model(
-            email=self.normalize_email(email),
+            email=self.normalize_email(email).lower(),
             username=username,
             first_name=first_name,
             last_name=last_name,
@@ -26,7 +26,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, first_name, last_name, username, email, password=None):
         user = self.create_user(
-            email=self.normalize_email(email),
+            email=self.normalize_email(email).lower(),
             username=username,
             password=password,
             first_name=first_name,
@@ -76,6 +76,13 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
+
+    def get_role(self):
+        if self.role == 1:
+            user_role = 'Restaurant'
+        elif self.role == 2:
+            user_role = 'Customer'
+        return user_role
 
 
 class UserProfile(models.Model):
