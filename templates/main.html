@@ -66,6 +66,35 @@
 			<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <![endif]-->
 
+	<style>
+		.slide {
+
+
+            animation: animate 16s ease-in-out infinite;
+            background-size: cover;
+        }
+
+        @keyframes animate{
+            0%,100%{
+                background: url({% static 'extra-images/home-top-1.jpg' %}) no-repeat center / cover;
+            }
+            25%{
+                background: url({% static 'extra-images/main_background.jpg' %}) no-repeat center / cover;
+            }
+            50%{
+                background: url({% static 'extra-images/banner3-1.jpg' %}) no-repeat center / cover;
+            }
+
+            75%{
+                background: url({% static 'extra-images/single-foodbakery-demo.jpg' %}) no-repeat center / cover;
+            }
+			100%{
+                background: url({% static 'extra-images/menu_background.jpg' %}) no-repeat center / cover;
+            }
+        }
+
+	</style>
+
 </head>
 
 <body>

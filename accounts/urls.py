@@ -15,5 +15,11 @@ urlpatterns = [
     path('custDashboard/', users.custDashboard, name='custDashboard'),
     path('vendorDashboard/', users.vendorDashboard, name='vendorDashboard'),
 
+    path('activate/<uidb64>/<token>/', users.activate, name='activate'),
+
+    path('forgot_password/', users.forgotPassword, name='forgotPassword'),
+    path('reset_password_validate/<uidb64>/<token>', users.resetpasswordValidate, name='reset_password_validate'),
+    path('resetPassword/', users.resetPassword, name='resetPassword'),
+
 ]
 

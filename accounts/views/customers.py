@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from ..forms import UserForm
 from ..models import User
+from ..utils import send_verification_email
 from django.views.generic import CreateView
 
 """
@@ -54,10 +55,18 @@ def registerUser(request):
                                             password=password)
             user.role = User.CUSTOMER
             user.save()
-            messages.success(request, 'User successfully registered!')
+
+            # Send Verification email
+
+            mail_subject = 'Please activate your account'
+            mail_template = 'accounts/emails/account_verification_email.html'
+
+            send_verification_email(request, user, mail_subject, mail_template)
+
+            messages.success(request, "Your account has been successfully registered! Please check your email.")
             print('User is created')
 
-            return redirect('accounts:loginUser')
+            return redirect('accounts:registerUser')
 
     else:
         form = UserForm()

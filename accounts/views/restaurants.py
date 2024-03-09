@@ -6,6 +6,8 @@ from ..models import User, UserProfile
 
 from vendor.forms import VendorForm
 
+from ..utils import send_verification_email
+
 """
 class RegisterRestaurant(CreateView):
     model = User
@@ -45,7 +47,7 @@ class RegisterRestaurant(CreateView):
 def registerVendor(request):
     if request.user.is_authenticated:
         messages.warning(request, 'You are already logged in !')
-        return redirect('accounts:dashbord')
+        return redirect('accounts:myAccount')
     elif request.method == 'POST':
         # store the data and create user
         form = UserForm(request.POST)
@@ -65,9 +67,16 @@ def registerVendor(request):
             user_profile = UserProfile.objects.get(user=user)
             vendor.user_profile = user_profile
             vendor.save()
-            messages.success(request, 'Your restaurant account has been successfully registered! Please wait for the '
-                                      'approuval.')
-            return redirect('accounts:loginUser')
+
+            # Send Verification email
+            mail_subject = 'Please activate your account'
+            mail_template = 'accounts/emails/account_verification_email.html'
+
+            send_verification_email(request, user, mail_subject, mail_template)
+
+            messages.success(request, 'Your restaurant account has been successfully registered! Please check your '
+                                      'email.')
+            return redirect('accounts:registerVendor')
         else:
             print('invalid form')
             print(form.errors)
