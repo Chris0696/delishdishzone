@@ -1,0 +1,15 @@
+{% autoescape off %}
+
+Hi {{ user.first_name }} {{ user.last_name }},
+
+{% if is_approved %}
+Congratulation! Your restaurant has been approved our admin team. --DDZone
+
+{% else %}
+We're sorry! You're not eligible for publish your food menu on DDZone marketplace. For more details, please contact
+our <a href="mailto:auth@oswaldj-chris.com">Support</a> --DDZone
+
+{% endif %}
+
+
+{% endautoescape %}

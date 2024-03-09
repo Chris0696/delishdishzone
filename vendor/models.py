@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import User, UserProfile
+from .utils import send_notification
 
 
 # Create your models here.
@@ -20,3 +21,42 @@ class Vendor(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            # Update
+            orig = Vendor.objects.get(pk=self.pk)
+            if orig.is_approved != self.is_approved:
+                mail_template = 'vendor/emails/admin_approval_email.html'
+                context = {
+                    'user': self.user,
+                    'is_approved': self.is_approved,
+                }
+                if self.is_approved:
+                    # Send notification mail
+                    mail_subject = 'Congratulation! Your restaurant has been approved'
+                    send_notification(mail_subject, mail_template, context)
+                else:
+                    # Send notification mail
+                    mail_subject = "We're sorry! You're not eligible for publish your food menu on DDZone marketplace"
+                    send_notification(mail_subject, mail_template, context)
+        return super(Vendor, self).save(*args, **kwargs)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
