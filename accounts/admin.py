@@ -12,7 +12,7 @@ class CustomerUserAdmin(UserAdmin):
 
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'country', 'city', 'state', 'address', 'pin_code')
+    list_display = ('user', 'country', 'city', 'rue', 'address', 'departement')
 
 
 admin.site.register(User, CustomerUserAdmin)
