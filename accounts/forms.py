@@ -1,7 +1,8 @@
 from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, HTML
 from django import forms
 from django.urls import reverse_lazy
-
+from .validators import allow_only_images_validator
 from .models import User, UserProfile
 
 
@@ -33,3 +34,41 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError(
                 "Passwords does'nt match."
             )
+
+
+class UserProfileForm(forms.ModelForm):
+    address = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Start typing...', 'required': 'required'}))
+    profile_picture = forms.FileField(widget=forms.FileInput(attrs={'class': 'btn btn-info'}), validators=[allow_only_images_validator])
+    cover_photo = forms.FileField(widget=forms.FileInput(attrs={'class': 'btn btn-info'}),  validators=[allow_only_images_validator])
+
+    # latitude = forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    # longitude = forms.CharField(widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+
+    class Meta:
+        model = UserProfile
+        fields = ['profile_picture', 'cover_photo', 'address', 'city', 'state', 'country', 'pin_code', 'longitude',
+                  'latitude']
+
+    def __init__(self, *args, **kwargs):
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+
+        for name, fiels in self.fields.items():
+            self.fields[name].widget.attrs.update({'class': 'upload-btn foodbakery-dev-featured-upload-btn'})
+            self.fields[name].label = False
+
+        for field in self.fields:
+            if field == 'latitude' or field == 'longitude':
+                self.fields[field].widget.attrs['readonly'] = 'readonly'
+
+
+'''
+            self.helper = FormHelper()
+            self.helper.layout = Layout(
+                'title',
+                'description',
+                'imagefile',
+                HTML(
+                    """{% if form.imagefile.value %}<img class="upload-btn foodbakery-dev-featured-upload-btn" src="{{ MEDIA_URL }}{{ form.imagefile.value }}">{% endif %}""", ),
+                'flag_featured',
+            )
+'''
