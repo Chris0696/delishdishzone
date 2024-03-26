@@ -42,7 +42,11 @@
 																		<li class="gal-img">
 																			<div class="drag-list">
 																				<div class="item-thumb">
+																					{% if profile.profile_picture %}
 																					<img class="thumbnail" src="{{profile.profile_picture.url}}" alt="Profile Picture">
+																					{% else %}
+																					<img class="thumbnail" src="{% static 'images/default.jpg' %}" alt="Profile Picture">
+																					{% endif %}
 																				</div>
 																				<div class="item-assts">
 																					<ul class="list-inline pull-right">
@@ -72,7 +76,11 @@
 																		<li class="gal-img">
 																			<div class="drag-list">
 																				<div class="item-thumb">
+																					{% if profile.cover_photo %}
 																					<img class="thumbnail" src="{{profile.cover_photo.url}}" alt="Cover Photo">
+																					{% else %}
+																					<img class="thumbnail" src="{% static 'images/default.jpg' %}" alt="Cover Photo">
+																					{% endif %}
 																				</div>
 																				<div class="item-assts">
 																					<ul class="list-inline pull-right">
@@ -194,7 +202,7 @@
 											<div>
 												<div class="field-holder">
 													<div class="payment-holder input-button-loader">
-														<input class="update-restaurant" type="submit" value="Update Restaurant" onclick="location.href='restaurant-location.html';">
+														<input class="update-restaurant" type="submit" value="Update Restaurant">
 													</div>
 												</div>
 											</div>

@@ -20,7 +20,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 							<div class="column-content ">
 								<b style="font-size: 50px; text-transform: uppercase; line-height: 60px; text-align: center; display: block; margin-bottom: 30px; letter-spacing: 6px; color: rgb(255, 255, 255);">
-									ORGANIC FAST FOOD MADE<br>EASY AND HEALTHY</b>
+									LA RESTAURATION RAPIDE BIOLOGIQUE<br>FACILE ET SAINE</b>
 							</div>
 						</div>
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -97,7 +97,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 							<div class="main-post">
 								<div class="media-holder center">
-									<figure><img alt="" src="assets/extra-images/options-img.png">
+									<figure><img alt="" src="{% static 'extra-images/options-img.png' %}">
 									</figure>
 								</div>
 							</div>
@@ -161,46 +161,17 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-right: 0 !important; padding-left: 0 !important;">
 					<div class="company-logo">
 						<ul>
+							{% for vendor in vendors %}
 							<li class="has-border">
 								<figure>
-									<a href="#"><img src="{% static 'extra-images/listing-logo18.png' %}" class="attachment-full size-full wp-post-image" alt=""></a>
+									{% if vendor.user_profile.profile_picture %}
+									<a href="#"><img src="{{ vendor.user_profile.profile_picture.url}}" class="attachment-full size-full wp-post-image" alt=""></a>
+									{% else %}
+									<a href="#"><img src="{% static 'images/default.jpg' %}" class="attachment-full size-full wp-post-image" alt=""></a>
+									{% endif %}
 								</figure>
 							</li>
-							<li class="has-border">
-								<figure>
-									<a href="#"><img src="{% static 'extra-images/fb-restaurant-02.jpg' %}" class="attachment-full size-full wp-post-image" alt=""></a>
-								</figure>
-							</li>
-							<li class="has-border">
-								<figure>
-									<a href="#"><img src="assets/extra-images/fb-restaurant-04.jpg" class="attachment-full size-full wp-post-image" alt=""></a>
-								</figure>
-							</li>
-							<li class="has-border">
-								<figure>
-									<a href="#"><img src="assets/extra-images/fb-restaurant-06.jpg" class="attachment-full size-full wp-post-image" alt=""></a>
-								</figure>
-							</li>
-							<li class="has-border">
-								<figure>
-									<a href="#"><img src="assets/extra-images/xlisting-logo03.png.pagespeed.ic_.aT-o9LinEJ.png" class="attachment-full size-full wp-post-image" alt=""></a>
-								</figure>
-							</li>
-							<li class="has-border">
-								<figure>
-									<a href="#"><img src="assets/extra-images/listing-logo09.png" class="attachment-full size-full wp-post-image" alt=""></a>
-								</figure>
-							</li>
-							<li class="has-border">
-								<figure>
-									<a href="#"><img src="assets/extra-images/listing-logo18.png" class="attachment-full size-full wp-post-image" alt=""></a>
-								</figure>
-							</li>
-							<li class="has-border">
-								<figure>
-									<a href="#"><img src="assets/extra-images/fb-restaurant-09.png" class="attachment-full size-full wp-post-image" alt=""></a>
-								</figure>
-							</li>
+							{% endfor %}
 						</ul>
 					</div>
 				</div>
@@ -241,7 +212,7 @@
 							<div class="icon-boxes modern top-center">
 								<div class="img-holder">
 									<figure>
-										<a href="#"><img src="assets/extra-images/how-to-work3.png" alt=""></a>
+										<a href="#"><img src="{% static 'extra-images/how-to-work3.png' %}" alt=""></a>
 									</figure>
 								</div>
 								<div class="text-holder">
@@ -256,7 +227,7 @@
 							<div class="icon-boxes modern top-center">
 								<div class="img-holder">
 									<figure>
-										<a href="#"><img src="assets/extra-images/how-to-work1.png" alt="#"></a>
+										<a href="#"><img src="{% static 'extra-images/how-to-work1.png' %}" alt="#"></a>
 									</figure>
 								</div>
 								<div class="text-holder">
@@ -309,12 +280,12 @@
 									<div class="listing-inner">
 										<h4><a href="#">Nature Healthy Food</a></h4>
 										<p>Apple Juice, Beef Roast, Cheese Burger</p>
-										<div class="min-order">Min Order <span class="price">£15.00</span></div>
+										<div class="min-order">Min Order <span class="price">£19.00</span></div>
 									</div>
 									<div class="listing-footer">
 										<div class="listing-inner clearfix">
 											<div class="img-holder">
-												<a href="#"><img src="assets/extra-images/listing-logo03.png" alt=""></a>
+												<a href="#"><img src="{% static 'extra-images/listing-logo03.png' %}" alt=""></a>
 											</div>
 											<div class="text-holder">
 												<p>Bristol, Bristol</p>
@@ -331,7 +302,7 @@
 							<div class="col-md-4 col-xs-6 grid-listing-col ">
 								<div class="img-holder">
 									<figure>
-										<a href="#"><img src="assets/extra-images/cover-photo19-359x212.jpg" alt=""></a>
+										<a href="#"><img src="{% static 'extra-images/cover-photo19-359x212.jpg' %}" alt=""></a>
 										<figcaption class="listing-meta">
 											<div class="listing-inner clearfix">
 												<div class="list-option">
@@ -348,7 +319,7 @@
 										<h4><a href="#">Menu &amp; Drinks</a></h4>
 										<p>Chicken Roast, Chines Soup, Cold Coffee</p>
 										<div class="min-order">
-											Min Order <span class="price">£10.00</span>
+											Min Order <span class="price">£36.00</span>
 										</div>
 									</div>
 									<div class="listing-footer">
@@ -371,7 +342,7 @@
 							<div class="col-md-4 col-xs-6 grid-listing-col">
 								<div class="img-holder">
 									<figure>
-										<a href="#"> <img src="assets/extra-images/cover-photo18-359x212.jpg" alt=""></a>
+										<a href="#"> <img src="{% static 'extra-images/cover-photo18-359x212.jpg' %}" alt=""></a>
 										<figcaption class="listing-meta">
 											<div class="listing-inner clearfix">
 												<div class="list-option">
@@ -394,7 +365,7 @@
 									<div class="listing-footer">
 										<div class="listing-inner clearfix">
 											<div class="img-holder">
-												<a href="#"><img src="assets/extra-images/listing-logo12.png" alt=""></a>
+												<a href="#"><img src="{% static 'extra-images/listing-logo12.png' %}" alt=""></a>
 											</div>
 											<div class="text-holder">
 												<p>Cheshire, Chester</p>
@@ -433,7 +404,7 @@
 									<div class="listing-footer">
 										<div class="listing-inner clearfix">
 											<div class="img-holder">
-												<a href="#"><img src="assets/extra-images/listing-logo15.png" alt=""></a>
+												<a href="#"><img src="{% static 'extra-images/listing-logo15.png' %}" alt=""></a>
 											</div>
 											<div class="text-holder">
 												<p>Cumbria, Aspatria</p>
@@ -450,7 +421,7 @@
 							<div class="col-md-4 col-xs-6 grid-listing-col ">
 								<div class="img-holder">
 									<figure>
-										<a href="#"><img src="assets/extra-images/cover-photo16-359x212.jpg" alt=""></a>
+										<a href="#"><img src="{% static 'extra-images/cover-photo16-359x212.jpg' %}" alt=""></a>
 										<figcaption class="listing-meta">
 											<div class="listing-inner clearfix">
 												<div class="list-option">
@@ -473,7 +444,7 @@
 									<div class="listing-footer">
 										<div class="listing-inner clearfix">
 											<div class="img-holder">
-												<a href="#"><img src="assets/extra-images/2.png" alt=""></a>
+												<a href="#"><img src="{% static 'extra-images/2.png' %}" alt=""></a>
 											</div>
 											<div class="text-holder">
 												<p>Dorset, Bridport</p>
@@ -490,7 +461,7 @@
 							<div class="col-md-4 col-xs-6 grid-listing-col featured">
 								<div class="img-holder">
 									<figure>
-										<a href="#"><img src="assets/extra-images/cover-photo15-359x212.jpg" alt=""></a>
+										<a href="#"><img src="{% static 'extra-images/cover-photo15-359x212.jpg' %}" alt=""></a>
 										<figcaption class="listing-meta">
 											<div class="listing-inner clearfix">
 												<div class="list-option">
@@ -512,7 +483,7 @@
 									<div class="listing-footer">
 										<div class="listing-inner clearfix">
 											<div class="img-holder">
-												<a href="#"><img src="assets/extra-images/listing-logo13.png" alt=""></a>
+												<a href="#"><img src="{% static 'extra-images/listing-logo13.png' %}" alt=""></a>
 											</div>
 											<div class="text-holder">
 												<p>Bedfordshire, Bedford</p>
@@ -552,7 +523,7 @@
 		</div>
 		<!-- End Container Start -->
 	</div>
-	<div class="page-section parallex-bg nopadding cs-nomargin" data-type="background" style="margin-top: 0px;padding-top: 110px;padding-bottom: 90px;margin-bottom: 0px;background: url(assets/extra-images/call-to-action-paralax.jpg) no-repeat center top / cover fixed #ffffff;">
+	<div class="page-section parallex-bg nopadding cs-nomargin" data-type="background" style="margin-top: 0px;padding-top: 110px;padding-bottom: 90px;margin-bottom: 0px; background: url({% static 'extra-images/call-to-action-paralax.jpg' %}) no-repeat center top / cover fixed #ffffff;">
 		<!-- Container Start -->
 		<div class="container ">
 			<div class="row">
@@ -589,169 +560,42 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="listing fancy fancy-simple">
 						<ul class="row">
-							<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-								<div class="list-post ">
-									<div class="img-holder">
-										<figure>
-											<a href="#"><img src="assets/extra-images/listing-logo03.png" alt=""></a>
-										</figure>
-									</div>
-									<span class="restaurant-status close"><em class="bookmarkRibbon"></em>Close</span>
-									<div class="text-holder">
-										<div class="post-title">
-											<h5><a href="#">Nature Healthy Food</a></h5>
+							{% for vendor in vendors %}
+								<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+									<div class="list-post featured">
+										<div class="img-holder">
+											<figure>
+												{% if vendor.user_profile.profile_picture %}
+												<a href="#"><img src="{{ vendor.user_profile.profile_picture.url }}" alt=""></a>
+												{% else %}
+												<a href="#"><img src="{% static 'images/default.jpg' %}" alt=""></a>
+												{% endif %}
+											</figure>
 										</div>
-										<address>Apple Juice, Beef Roast, Cheese Burger</address>
-										<div class="delivery-potions">
-											<div class="post-time"><i class="icon-check_circle"></i>Min £15.00
+										<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
+										<div class="text-holder">
+											<div class="post-title">
+												<h5><a href="#">{{vendor}}</a>
+													<span class="sponsored text-color">Sponsored</span>
+												</h5>
 											</div>
-											<div class="post-time"><i class="icon-motorcycle"></i>10 min</div>
-											<div class="post-time"><i class="icon-clock4"></i>15 min</div>
-											<div class="list-rating">
-												<div class="rating-star">
-													<span class="rating-box" style="width: 100%;"></span>
+											<address>Apple Juice, BB.Q</address>
+											<div class="delivery-potions">
+												<div class="post-time"><i class="icon-check_circle"></i>Min £25.00
 												</div>
-												<span class="reviews">(1)</span>
+												<div class="post-time"><i class="icon-motorcycle"></i>10 min</div>
+												<div class="post-time"><i class="icon-clock4"></i>15 min</div>
+												{% if vendor.user_profile.city and vendor.user_profile.rue and vendor.user_profile.country %}
+												<span>{{ vendor.user_profile.city }}, {{ vendor.user_profile.rue }}, {{ vendor.user_profile.country }}</span>
+												{% endif %}
 											</div>
-											<span>Bristol</span>
+										</div>
+										<div class="list-option">
+											<a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i></a>
 										</div>
 									</div>
-									<div class="list-option">
-										<a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i></a>
-									</div>
-								</div>
-							</li>
-							<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-								<div class="list-post ">
-									<div class="img-holder">
-										<figure>
-											<a href="#"><img src="assets/extra-images/listing-logo09.png" alt=""> </a>
-										</figure>
-									</div>
-									<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
-									<div class="text-holder">
-										<div class="post-title">
-											<h5><a href="#">Menu &amp; Drinks</a></h5>
-										</div>
-										<address>Chicken Roast, Chines Soup, Cold Coffee</address>
-										<div class="delivery-potions">
-											<div class="post-time"><i class="icon-check_circle"></i>Min £10.00
-											</div>
-											<div class="post-time"><i class="icon-motorcycle"></i>10 min</div>
-											<div class="post-time"><i class="icon-clock4"></i>15 min</div>
-											<span>Acle</span>
-										</div>
-									</div>
-									<div class="list-option">
-										<a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i></a>
-									</div>
-								</div>
-							</li>
-							<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-								<div class="list-post featured">
-									<div class="img-holder">
-										<figure>
-											<a href="#"><img src="assets/extra-images/listing-logo12.png" alt=""></a>
-										</figure>
-									</div>
-									<span class="restaurant-status close"><em class="bookmarkRibbon"></em>Close</span>
-									<div class="text-holder">
-										<div class="post-title">
-											<h5><a href="@">Chefs</a> <span class="sponsored text-color">Sponsored</span></h5>
-										</div>
-										<address>Egg Fry, Noodles, Pastry</address>
-										<div class="delivery-potions">
-											<div class="post-time"><i class="icon-check_circle"></i>Min £10.00
-											</div>
-											<div class="post-time"><i class="icon-motorcycle"></i>10 min</div>
-											<div class="post-time"><i class="icon-clock4"></i>15 min </div>
-											<span>Chester</span>
-										</div>
-									</div>
-									<div class="list-option">
-										<a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i></a>
-									</div>
-								</div>
-							</li>
-							<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-								<div class="list-post featured">
-									<div class="img-holder">
-										<figure>
-											<a href="#"> <img src="assets/extra-images/listing-logo15.png" alt=""></a>
-										</figure>
-									</div>
-									<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
-									<div class="text-holder">
-										<div class="post-title">
-											<h5><a href="#">Menu’s</a><span class="sponsored text-color">Sponsored</span></h5>
-										</div>
-										<address>Fish Fry, Fresh Juice, Stakes</address>
-										<div class="delivery-potions">
-											<div class="post-time"><i class="icon-check_circle"></i>Min £15.00
-											</div>
-											<div class="post-time"><i class="icon-motorcycle"></i>10 min</div>
-											<div class="post-time"><i class="icon-clock4"></i>15 min </div>
-											<span>Aspatria</span>
-										</div>
-									</div>
-									<div class="list-option">
-										<a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i></a>
-									</div>
-								</div>
-							</li>
-							<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-								<div class="list-post ">
-									<div class="img-holder">
-										<figure>
-											<a href="#"><img src="assets/extra-images/2.png" alt=""> </a>
-										</figure>
-									</div>
-									<span class="restaurant-status close"><em class="bookmarkRibbon"></em>Close</span>
-									<div class="text-holder">
-										<div class="post-title">
-											<h5><a href="#">Food N&amp;H</a></h5>
-										</div>
-										<address>Beef Roast, Cheese Burger, Doughnut</address>
-										<div class="delivery-potions">
-											<div class="post-time"><i class="icon-check_circle"></i>Min £20.00
-											</div>
-											<div class="post-time"><i class="icon-motorcycle"></i>10 min</div>
-											<div class="post-time"><i class="icon-clock4"></i>15 min</div>
-											<span>Bridport</span>
-										</div>
-									</div>
-									<div class="list-option"><a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i> </a>
-									</div>
-								</div>
-							</li>
-							<li class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-								<div class="list-post featured">
-									<div class="img-holder">
-										<figure>
-											<a href="#"><img src="assets/extra-images/listing-logo13.png" alt=""></a>
-										</figure>
-									</div>
-									<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
-									<div class="text-holder">
-										<div class="post-title">
-											<h5><a href="#">Restaurant</a>
-												<span class="sponsored text-color">Sponsored</span>
-											</h5>
-										</div>
-										<address>Apple Juice, BB.Q</address>
-										<div class="delivery-potions">
-											<div class="post-time"><i class="icon-check_circle"></i>Min £25.00
-											</div>
-											<div class="post-time"><i class="icon-motorcycle"></i>10 min</div>
-											<div class="post-time"><i class="icon-clock4"></i>15 min</div>
-											<span>Bedford</span>
-										</div>
-									</div>
-									<div class="list-option">
-										<a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i></a>
-									</div>
-								</div>
-							</li>
+								</li>
+							{% endfor %}
 						</ul>
 					</div>
 				</div>
@@ -768,19 +612,19 @@
 					<div class="company-logo fancy">
 						<ul>
 							<li>
-								<figure><a href="#"><img src="assets/extra-images/partners-logo1.png" alt=""></a></figure>
+								<figure><a href="#"><img src="{% static 'extra-images/partners-logo1.png' %}" alt=""></a></figure>
 							</li>
 							<li>
-								<figure><a href="#"><img src="assets/extra-images/partners-logo2.png" alt=""></a></figure>
+								<figure><a href="#"><img src="{% static 'extra-images/partners-logo2.png' %}" alt=""></a></figure>
 							</li>
 							<li>
-								<figure><a href="#"><img src="assets/extra-images/partners-logo3.png" alt=""></a></figure>
+								<figure><a href="#"><img src="{% static 'extra-images/partners-logo3.png' %}" alt=""></a></figure>
 							</li>
 							<li>
-								<figure><a href="#"><img src="assets/extra-images/partners-logo4.png" alt=""></a></figure>
+								<figure><a href="#"><img src="{% static 'extra-images/partners-logo4.png' %}" alt=""></a></figure>
 							</li>
 							<li>
-								<figure><a href="#"><img src="assets/extra-images/partners-logo5.png" alt=""></a></figure>
+								<figure><a href="#"><img src="{% static 'extra-images/partners-logo5.png' %}" alt=""></a></figure>
 							</li>
 						</ul>
 					</div>

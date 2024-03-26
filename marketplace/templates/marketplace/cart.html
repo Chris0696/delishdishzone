@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+
+<!-- Main Section Start -->
+			<div class="main-section pt-5">
+
+				<div class="page-section">
+					<div class="container">
+						<div class="row">
+
+							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+								<div class="tabs-holder horizontal">
+									<ul class="stickynav-tabs nav nav-tabs">
+										<li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-shopping-cart text-danger"></i>Cart Items</a></li>
+
+									</ul>
+									<div class="tab-content">
+										<div id="home" class="tab-pane in active">
+											<div class="menu-itam-holder">
+
+												<div class="text-center p-5" id="empty-cart" style="display: none;">
+													<h3>Cart is empty</h3>
+												</div>
+
+												<div id="menu-item-list-6272" class="menu-itam-list">
+
+													<ul>
+														{% if cart_items %}
+															{% for item in cart_items %}
+															<li id="cart-item-{{item.id}}">
+																<div class="image-holder"> <a href="{{ item.fooditem.image.url }}"><img src="{{item.fooditem.image.url}}" alt=""></a></div>
+																<div class="text-holder">
+																	<h6>{{ item.fooditem }}</h6>
+																	<span>{{ item.fooditem.description }}</span>
+																	<a href="{% url 'marketplace:vendor_detail' item.fooditem.vendor.slug %}" class="badge badge-warning">{{ item.fooditem.vendor }}</a>
+																</div>
+
+																<div class="price-holder">
+																	<span class="price">{{ item.fooditem.price }} FCFA</span>
+																	<a href="#" class="decrease_cart" data-id="{{ item.fooditem.id }}" id="{{item.id}}" data-url ="{% url 'marketplace:decrease_cart' item.fooditem.id %}" style="margin-right: 22px;"><i class="icon-minus text-color"></i></a>
+																	<label for="" id="qty-{{ item.fooditem.id }}">{{ item.quantity }}</label>
+																	<a href="#" class="add_to_cart" data-id="{{ item.fooditem.id }}" data-url ="{% url 'marketplace:add_to_cart' item.fooditem.id %}"><i class="icon-plus4 text-color"></i></a>
+																	<a href="#" class="delete_cart" data-id="{{ item.id }}" data-url ="{% url 'marketplace:delete_cart' item.id %}"><i class="icon-delete text-color"></i></a>
+
+																</div>
+															</li>
+															{% endfor %}
+														{% else %}
+															<div class="text-center p-5">
+																<h3>Cart is empty</h3>
+															</div>
+														{% endif %}
+													</ul>
+
+												</div>
+												{% for item in cartitems %}
+
+												<span id="qty-{{item.fooditem.id}}" class="item_qty d-none" data-qty="{{item.quantity}}">{{item.quantity}}</span>
+
+												{% endfor %}
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-----Your Oders Section ------->
+
+							<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+								<div class="tabs-holder horizontal">
+									<ul class="stickynav-tabs nav nav-tabs">
+										<li class="active"><a data-toggle="tab" href="#home"><i class="icon- icon-room_service"></i>Your Oders</a></li>
+
+									</ul>
+									<div class="tab-content">
+										<div id="order" class="tab-pane in active">
+											<div class="menu-itam-holder">
+												<div class="user-order">
+
+										<span class="error-message pre-order-msg">This restaurant allows Pre orders.</span>
+										<span class="discount-info" style="display: block;">If you have a discount code,<br>
+											you will
+											be able to input it<br> at the payments stage.</span>
+										<div class="select-option dev-select-fee-option">
+											<ul>
+												<li>
+													<input id="order-pick-up-fee" type="radio" name="order_fee_type">
+													<label for="order-pick-up-fee">Pick-Up</label>
+													<span>15.00 FCFA</span>
+												</li>
+												<li>
+													<input id="order-delivery-fee" checked="checked" type="radio" name="order_fee_type">
+													<label for="order-delivery-fee">Delivery</label>
+													<span>{{delivery}} FCFA</span>
+												</li>
+											</ul>
+										</div>
+										<div id="dev-menu-orders-list">
+
+											<div class="price-area dev-menu-price-con">
+												<ul>
+													<li>
+														Subtotal
+														<span class="price">
+															<em id="subtotal" class="dev-menu-subtotal">{{ subtotal }}</em>
+															FCFA
+														</span>
+													</li>
+													<li class="restaurant-fee-con">
+														<span class="fee-title">
+															Delivery
+														</span>
+														<span class="price">
+															<em id="pick_up" class="dev-menu-charges">{{delivery}}</em>
+															FCFA
+														</span>
+													</li>
+													<li>VAT (13%)
+														<span class="price">
+															<em id="vat" class="dev-menu-vtax">{{ tax }}</em>
+															FCFA
+														</span>
+													</li>
+												</ul>
+												<p class="total-price">
+													Total
+													<span class="price">
+														<em id="grand_total" class="dev-menu-grtotal">{{ grand_total }}</em>
+														FCFA
+													</span>
+												</p>
+											</div>
+										</div>
+										<div id="dev-no-menu-orders-list">
+											<span class="success-message">There are no items in your basket.</span>
+										</div>
+										<div class="pay-option dev-order-pay-options">
+											<ul>
+												<li>
+													<input id="order-cash-payment" type="radio" name="order_payment_method">
+													<label for="order-cash-payment"><i class="icon-coins"></i>Cash</label>
+												</li>
+												<li>
+													<input id="order-card-payment" type="radio" checked="checked" name="order_payment_method">
+													<label for="order-card-payment"><i class="icon-credit-card4"></i>Card</label>
+												</li>
+											</ul>
+										</div>
+										<div class="row">
+											<div class="col-sm-12">
+												<div class="form-group">
+													<div class="input-group date">
+														<input type="text" name="delivery_date" id="datetimepicker1" class="form-control" value="04-04-2020 10:07" placeholder="Select Date and Time">
+														<span class="input-group-addon">
+															<span style="display: block; margin-top: 5px; margin-left: -7px" class="icon-event_available"></span>
+														</span>
+													</div>
+												</div>
+											</div>
+										</div>
+										<a href="#" class="menu-order-confirm">Confirm Order</a>
+										<span class="menu-loader"></span>
+									</div>
+
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Main Section End -->
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

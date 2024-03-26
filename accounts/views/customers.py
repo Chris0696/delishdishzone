@@ -6,36 +6,13 @@ from ..models import User
 from ..utils import send_verification_email
 from django.views.generic import CreateView
 
-"""
-class RegisterUser(CreateView):
-    model = User
-    form_class = UserForm
-    template_name = 'accounts/registerUser.html'
-
-    def get_context_data(self, **kwargs):
-        kwargs['user_type'] = 'customer'
-        return super().get_context_data(**kwargs)
-
-    def form_valid(self, form):
-        password = form.cleaned_data['password']
-        user = form.save(commit=False)
-        user.set_password(password)
-        user.role = User.CUSTOMER
-        user.save()
-        messages.success(self.request, 'User created successfully!')
-        print('User is created')
-        return redirect('accounts:loginUser')
-
-"""
-
 
 def registerUser(request):
     if request.user.is_authenticated:
         messages.warning(request, 'You are already logged in !')
-        return redirect('accounts:dashbord')
+        return redirect('accounts:myAccount')
     # Create the user using the form
     elif request.method == 'POST':
-        print(request.POST)
         form = UserForm(request.POST)
         if form.is_valid():
             # password = form.cleaned_data['password']
@@ -64,9 +41,11 @@ def registerUser(request):
             send_verification_email(request, user, mail_subject, mail_template)
 
             messages.success(request, "Your account has been successfully registered! Please check your email.")
-            print('User is created')
 
             return redirect('accounts:registerUser')
+        else:
+            print('invalid form')
+            print(form.errors)
 
     else:
         form = UserForm()
@@ -76,3 +55,26 @@ def registerUser(request):
     }
     return render(request, 'accounts/registerUser.html', context)
 
+
+
+"""
+class RegisterUser(CreateView):
+    model = User
+    form_class = UserForm
+    template_name = 'accounts/registerUser.html'
+
+    def get_context_data(self, **kwargs):
+        kwargs['user_type'] = 'customer'
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        password = form.cleaned_data['password']
+        user = form.save(commit=False)
+        user.set_password(password)
+        user.role = User.CUSTOMER
+        user.save()
+        messages.success(self.request, 'User created successfully!')
+        print('User is created')
+        return redirect('accounts:loginUser')
+
+"""

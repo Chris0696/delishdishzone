@@ -26,10 +26,10 @@
 											<div class="clearfix"></div>
 											<ul class="login-switches">
 												<li>
-													<a href="restaurant-dashboard.html" class="btn-red demo-publisher-user"><i class="icon-food"></i> Restaurant</a>
+													<a href="{% url 'accounts:vendorDashboard' %}" class="btn-red demo-publisher-user"><i class="icon-food"></i> Restaurant</a>
 												</li>
 												<li>
-													<a href="buyer-dashboard.html" class="btn-red btn-green demo-buyer-user"><i class="icon-user4"></i> Buyer</a>
+													<a href="{% url 'accounts:custDashboard' %}" class="btn-red btn-green demo-buyer-user"><i class="icon-user4"></i> Buyer</a>
 												</li>
 											</ul>
 										</div>

@@ -9,6 +9,7 @@ class Vendor(models.Model):
     user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE)
     user_profile = models.OneToOneField(UserProfile, related_name='userprofile', on_delete=models.CASCADE)
     restaurant_name = models.CharField(max_length=50)
+    slug = models.SlugField(max_length=128, null=False, unique=True)
     restaurant_address = models.CharField(max_length=150)
     restaurant_phone = models.CharField(max_length=150)
     restaurant_license = models.ImageField(upload_to='vendors/license')

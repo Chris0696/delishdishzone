@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+{% include 'includes/alerts.html' %}
+
+<!-- Main Section Start -->
+		<div class="main-section">
+			{% include 'includes/cover.html' %}
+			<div class="page-section account-header buyer-logged-in">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+							<!---  Load sidebar here  ---->
+							{% include 'includes/v_sidebar.html' %}
+						</div>
+						<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+							<div class="user-dashboard loader-holder">
+								<div class="user-holder">
+									<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<h5 class="text-uppercase">Build your food menu</h5>
+
+									<hr>
+										<button class="btn btn-primary" onclick="history.back()"><i class="fa fa-angle-left" aria-hidden="true"></i> Back</button>
+										<br><br>
+									<h6>Add New Food</h6>
+									<form action="{% url 'accounts:add_food' %}" method="POST" enctype="multipart/form-data">
+										{% csrf_token %}
+										<div class="form-fields-set">
+											<ul>
+												<li>
+													<div class="row">
+														<div class="col-lg-12 col-md-12 col-sm-12">
+															<div class="fields-holder">
+
+																{{ form.food_title | as_crispy_field }}
+															</div>
+														</div>
+
+														<br><br><br>
+														<div class="col-lg-12 col-md-12 col-sm-12">
+															<div class="fields-holder ">
+
+																{{ form.category | as_crispy_field }}
+															</div>
+														</div>
+														<br><br><br>
+														<div class="col-lg-12 col-md-12 col-sm-12">
+															<div class="fields-holder">
+
+																{{ form.description | as_crispy_field }}
+															</div>
+														</div>
+														<br><br><br>
+														<div class="col-lg-12 col-md-12 col-sm-12">
+															<div class="fields-holder">
+
+																{{ form.price | as_crispy_field }}
+															</div>
+														</div>
+
+														<div class="col-lg-6 col-md-6 col-sm-12">
+															<div class="fields-holder">
+
+																{{ form.image | as_crispy_field }}
+															</div>
+														</div>
+														<div class="col-lg-6 col-md-6 col-sm-12 ml-150">
+															<div class="fields-holder text-center">
+																{% if food.image %}
+																<img  src="{{ food.image.url }}" alt="Food image" width="80">
+																{% else %}
+																 <img class="mt-3" src="{% static 'images/default.jpg' %}" alt=""  width="90">
+																{% endif %}
+
+															</div>
+														</div>
+														<br><br><br>
+														<div class="col-lg-12 col-md-12 col-sm-12">
+															<div class="fields-holder">
+
+																{{ form.is_available | as_crispy_field }}
+															</div>
+														</div>
+													</div>
+
+													{% for field in form %}
+														{% if field.errors %}
+															{% for error in field.errors %}
+																<li style="color: red;">{{ error }}</li>
+															{% endfor %}
+														{% endif %}
+													{% endfor %}
+
+													<div class="field-holder">
+														<div class="payment-holder input-button-loader">
+															<i class="fa fa-plus" aria-hidden="true"></i>
+															<input class="update-restaurant" type="submit" value="Add">
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Main Section End -->
+
+{% endblock content %}

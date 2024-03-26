@@ -13,13 +13,3 @@ def send_notification(mail_subject, mail_template, context):
     to_email = context['user'].email
     mail = EmailMessage(mail_subject, message, from_email, to=[to_email])
     mail.send()
-
-
-
-
-
-
-
-
-
-

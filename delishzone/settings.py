@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'vendor.apps.VendorConfig',
+    'menu.apps.MenuConfig',
+    'marketplace.apps.MarketplaceConfig',
+
     'crispy_forms',
     'crispy_bootstrap4',
 ]
@@ -68,7 +71,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'accounts.context_processors.get_vendor',
+                'accounts.context_processors.get_user_profile',
                 'accounts.context_processors.get_google_api',
+                'marketplace.context_processors.get_cart_counter',
+                'marketplace.context_processors.get_cart_amounts',
             ],
         },
     },
@@ -79,13 +85,15 @@ WSGI_APPLICATION = 'delishzone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
 
 """
 DATABASES = {
@@ -99,6 +107,7 @@ DATABASES = {
     }
 }
 
+"""
 AUTH_USER_MODEL = 'accounts.User'
 
 # Password validation
