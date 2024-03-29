@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
-
+{% load filters %}
 {% block content %}
 
 
@@ -35,7 +35,7 @@
 																<div class="image-holder"> <a href="{{ item.fooditem.image.url }}"><img src="{{item.fooditem.image.url}}" alt=""></a></div>
 																<div class="text-holder">
 																	<h6>{{ item.fooditem }}</h6>
-																	<span>{{ item.fooditem.description }}</span>
+																	<span>{{ item.fooditem.description|break_at_word_count:04 }}</span>
 																	<a href="{% url 'marketplace:vendor_detail' item.fooditem.vendor.slug %}" class="badge badge-warning">{{ item.fooditem.vendor }}</a>
 																</div>
 
@@ -135,9 +135,7 @@
 												</p>
 											</div>
 										</div>
-										<div id="dev-no-menu-orders-list">
-											<span class="success-message">There are no items in your basket.</span>
-										</div>
+										
 										<div class="pay-option dev-order-pay-options">
 											<ul>
 												<li>

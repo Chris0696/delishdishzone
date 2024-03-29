@@ -51,7 +51,7 @@
 
 											<td class="text-left">
 												<a href="#"><p class="mb-0 font-weight-bold">{{ food }}</p>
-												<small class="text-muted">{{food.description}}</small></a>
+												<small class="text-muted">{{ food.description|linebreaksbr|truncatechars:25 }}</small></a>
 											</td>
 										  	<td class="text-center">
 												{% if food.is_available %}

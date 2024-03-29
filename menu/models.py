@@ -7,7 +7,7 @@ from vendor.models import Vendor
 
 class Category(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
-    category_name = models.CharField(max_length=50, unique=True)
+    category_name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=180, unique=True)
     image = models.ImageField(upload_to="foodimages/food_categories", default="foodimages/food_categories/default.jpg",
                               blank=True, null=True)

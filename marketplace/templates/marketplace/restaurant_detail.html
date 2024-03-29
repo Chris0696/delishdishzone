@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load static %}
-
+{% load filters %}
 {% block content %}
 
 <!-- Main Section Start -->
@@ -122,7 +122,7 @@
 													{% for category in categories %}
 													<div class="element-title" id="menu-category-0">
 														<h5 class="text-color">{{ category.category_name }}</h5>
-														<span>{{ category.description}}</span>
+														<span>{{ category.description }}</span>
 													</div>
 													<ul>
 														{% for food in category.fooditems.all %}
@@ -130,7 +130,7 @@
 															<div class="image-holder"> <a href="{{food.image.url}}"><img src="{{food.image.url}}" alt=""></a></div>
 															<div class="text-holder">
 																<h6>{{ food }}</h6>
-																<span>{{food.description}}
+																<span>{{food.description|break_at_word_count:04 }}
 																</span>
 															</div>
 															<div class="price-holder">

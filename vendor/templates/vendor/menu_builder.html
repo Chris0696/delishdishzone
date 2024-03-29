@@ -38,7 +38,7 @@
 											  <td class="text-left">{{ forloop.counter }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{% if cat.image %} {{ cat.image.url }} {% else %} {% static 'images/default.jpg' %}{% endif %}" alt="Category Image" width="50"></td>
 											<td class="text-left">
 												<a href="{% url 'accounts:fooditems_by_category' cat.id %}"><p class="mb-0 font-weight-bold">{{ cat }}</p>
-												<small class="text-muted">{{cat.description}}</small></a>
+												<small class="text-muted">{{cat.description|linebreaksbr|truncatechars:45}}</small></a>
 											</td>
 											<td>
 												<a href="{% url 'accounts:edit_category' cat.id %}" style="color:#9282c7;">

@@ -80,8 +80,9 @@ def add_category(request):
             category_name = form.cleaned_data['category_name']
             category = form.save(commit=False)
             category.vendor = get_vendor(request)
-            category.slug = slugify(category_name)
-            form.save()
+            category.save()  # here the category id will be genereted
+            category.slug = slugify(category_name)+"-"+str(category.id)  # ex : poulet-15
+            category.save()
             messages.success(request, 'Category added successfully!')
             return redirect('accounts:menu_builder')
 
@@ -180,10 +181,3 @@ def delete_food(request, pk=None):
     food.delete()
     messages.success(request, 'Food Item has been deleted successfully!')
     return redirect('accounts:fooditems_by_category', food.category.id)
-
-
-
-
-
-
-

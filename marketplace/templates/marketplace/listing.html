@@ -296,6 +296,11 @@
 														{% if vendor.user_profile.city and vendor.user_profile.rue and vendor.user_profile.country %}
 														<span>{{ vendor.user_profile.city }}, {{ vendor.user_profile.rue }}, {{ vendor.user_profile.country }}</span>
 														{% endif %}
+
+														{% if source_location %}
+														<br>
+														<span><small><b>{{vendor.kms}} km</b> away from {{source_location}}</small></span>
+														{% endif %}
 													</div>
 												</div>
 												<div class="list-option">

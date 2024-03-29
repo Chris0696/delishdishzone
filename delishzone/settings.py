@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 from decouple import config
 from django.contrib.messages import constants as messages
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'crispy_forms',
     'crispy_bootstrap4',
+    'django.contrib.gis',
 ]
 
 MIDDLEWARE = [
@@ -85,7 +86,7 @@ WSGI_APPLICATION = 'delishzone.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -93,12 +94,12 @@ DATABASES = {
     }
 }
 
-
-
 """
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
@@ -107,7 +108,6 @@ DATABASES = {
     }
 }
 
-"""
 AUTH_USER_MODEL = 'accounts.User'
 
 # Password validation
@@ -180,7 +180,14 @@ EMAIL_HOST = 'node35-eu.n0c.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ddzone@codepythonavechris.com'
-EMAIL_HOST_PASSWORD = 'DfDD2mAI/5Im5fA5D'
+EMAIL_HOST_PASSWORD = 'mEE9PgEPXP*?EE9KEEA'
 
 GOOGLE_API_KEY = 'AIzaSyAzCFHjLIhWFL0jVSvUzvRK6ojY4bjMFDA'
+
+wave = os.path.join(BASE_DIR, 'C:/Users/jchri/PycharmProjects/delishdishzoneapp/.venv/Lib/site-packages/osgeo')
+
+os.environ['PATH'] = wave + ';' + os.environ['PATH']
+os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'C:/Users/jchri/PycharmProjects/delishdishzoneapp/.venv/Lib/site-packages/osgeo/data/proj') + ';' + os.environ['PATH']
+
+GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, 'C:/Users/jchri/PycharmProjects/delishdishzoneapp/.venv/Lib/site-packages/osgeo/gdal304.dll')
 

@@ -1,3 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
 @keyframes show-toast{
     0% {bottom: -100%}
     20% {bottom: 100px}
@@ -57,6 +64,9 @@ table > tbody > tr > td{
 
 /* google translate */
 
+.pac-container.pac-logo::after {
+    display: none !important;
+}
 
 #goog-gt-tt {
     display: none !important;

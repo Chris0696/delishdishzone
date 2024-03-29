@@ -20,19 +20,7 @@
 									<div class="status status-message"></div>
 									<form action="{% url 'accounts:loginUser' %}" class="wp-user-form webkit" id="ControlForm_43687"  method="post" enctype="multipart/form-data">
 										{% csrf_token %}
-										<div class="cs-demo-login">
-											<div class="cs-demo-login-lable text-color">Click to login with Demo User
-											</div>
-											<div class="clearfix"></div>
-											<ul class="login-switches">
-												<li>
-													<a href="{% url 'accounts:vendorDashboard' %}" class="btn-red demo-publisher-user"><i class="icon-food"></i> Restaurant</a>
-												</li>
-												<li>
-													<a href="{% url 'accounts:custDashboard' %}" class="btn-red btn-green demo-buyer-user"><i class="icon-user4"></i> Buyer</a>
-												</li>
-											</ul>
-										</div>
+
 										<div class="input-filed">
 											<i class="icon-user4"></i>
 											<input type="email" name="email" placeholder="Enter your email address">
