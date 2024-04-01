@@ -143,11 +143,13 @@
 							{% for vendor in vendors %}
 							<li class="has-border">
 								<figure>
-									{% if vendor.user_profile.profile_picture %}
-									<a href="#"><img src="{{ vendor.user_profile.profile_picture.url}}" class="attachment-full size-full wp-post-image" alt=""></a>
-									{% else %}
-									<a href="#"><img src="{% static 'images/default.jpg' %}" class="attachment-full size-full wp-post-image" alt=""></a>
-									{% endif %}
+									<a href="{% url 'marketplace:vendor_detail' vendor.slug %}">
+										{% if vendor.user_profile.profile_picture %}
+										<img src="{{ vendor.user_profile.profile_picture.url}}" class="attachment-full size-full wp-post-image" alt="">
+										{% else %}
+										<img src="{% static 'images/default.jpg' %}" class="attachment-full size-full wp-post-image" alt="">
+										{% endif %}
+									</a>
 								</figure>
 							</li>
 							{% endfor %}
@@ -234,10 +236,12 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="row">
 						<div class="listing grid-listing three-cols">
+							{% if fooditems %}
+							{% for food in fooditems %}
 							<div class="col-md-4 col-xs-6 grid-listing-col ">
 								<div class="img-holder">
 									<figure>
-										<a href="#"><img src="{% static 'extra-images/cover-photo20-359x212.jpg' %}" alt=""> </a>
+										<a href="#"><img src="{{ food.image.url }}" alt=""> </a>
 										<figcaption class="listing-meta">
 											<div class="listing-inner clearfix">
 												<div class="list-option">
@@ -257,225 +261,42 @@
 								</div>
 								<div class="text-holder">
 									<div class="listing-inner">
-										<h4><a href="#">Nature Healthy Food</a></h4>
+										<h4><a href="#">{{ food }}</a></h4>
 										<p>Apple Juice, Beef Roast, Cheese Burger</p>
-										<div class="min-order">Min Order <span class="price">£19.00</span></div>
+										<div class="min-order">Min Order <span class="price">{{food.price}} FCFA</span></div>
 									</div>
 									<div class="listing-footer">
-										<div class="listing-inner clearfix">
-											<div class="img-holder">
-												<a href="#"><img src="{% static 'extra-images/listing-logo03.png' %}" alt=""></a>
-											</div>
-											<div class="text-holder">
-												<p>Bristol, Bristol</p>
-												<p class="deliver-time"><span class="icon-motorcycle2"></span>10
-													min</p>
-												<p class="pickup-time"><span class="icon-clock4"></span>15 min
-												</p>
-												<a href="#" class="ordernow-btn bgcolor">Order Now</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4 col-xs-6 grid-listing-col ">
-								<div class="img-holder">
-									<figure>
-										<a href="#"><img src="{% static 'extra-images/cover-photo19-359x212.jpg' %}" alt=""></a>
-										<figcaption class="listing-meta">
+
 											<div class="listing-inner clearfix">
-												<div class="list-option">
-													<span class="label bgcolor time-label distance-1705" style="display: none;"></span>
-													<a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i></a>
+												<div class="img-holder">
+													<a href="{% url 'marketplace:vendor_detail' food.vendor.slug %}">
+														{% if food.vendor.user_profile.profile_picture %}
+														<img src="{{ food.vendor.user_profile.profile_picture.url }}" alt="">
+														{% else %}
+														<img src="{% static 'images/default.jpg' %}" alt="">
+														{% endif %}
+													</a>
+												</div>
+												<div class="text-holder">
+													<p><a href="{% url 'marketplace:vendor_detail' food.vendor.slug %}">{{ food.vendor }}</p>
+													<p class="deliver-time"><span class="icon-motorcycle2"></span>10
+														min</p>
+													<p class="pickup-time"><span class="icon-clock4"></span>15 min
+													</p>
+													<a href="#" class="ordernow-btn bgcolor">Order Now</a>
 												</div>
 											</div>
-										</figcaption>
-									</figure>
-									<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
-								</div>
-								<div class="text-holder">
-									<div class="listing-inner">
-										<h4><a href="#">Menu &amp; Drinks</a></h4>
-										<p>Chicken Roast, Chines Soup, Cold Coffee</p>
-										<div class="min-order">
-											Min Order <span class="price">£36.00</span>
-										</div>
-									</div>
-									<div class="listing-footer">
-										<div class="listing-inner clearfix">
-											<div class="img-holder">
-												<a href="#"><img src="{% static 'extra-images/listing-logo09.png' %}" alt=""></a>
-											</div>
-											<div class="text-holder">
-												<p>Norfolk, Acle</p>
-												<p class="deliver-time"><span class="icon-motorcycle2"></span>10
-													min</p>
-												<p class="pickup-time"><span class="icon-clock4"></span>15 min
-												</p>
-												<a href="#" class="ordernow-btn bgcolor">Order Now</a>
-											</div>
-										</div>
+
+
 									</div>
 								</div>
 							</div>
-							<div class="col-md-4 col-xs-6 grid-listing-col">
-								<div class="img-holder">
-									<figure>
-										<a href="#"> <img src="{% static 'extra-images/cover-photo18-359x212.jpg' %}" alt=""></a>
-										<figcaption class="listing-meta">
-											<div class="listing-inner clearfix">
-												<div class="list-option">
-													<span class="label bgcolor time-label" style="display: none;"></span>
-													<a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i></a>
-												</div>
-											</div>
-										</figcaption>
-									</figure>
-									<span class="restaurant-status close"><em class="bookmarkRibbon"></em>Close</span>
-								</div>
-								<div class="text-holder">
-									<div class="listing-inner">
-										<h4><a href="#">Chefs</a></h4>
-										<p>Egg Fry, Noodles, Pastry</p>
-										<div class="min-order">
-											Min Order <span class="price">£10.00</span>
-										</div>
-									</div>
-									<div class="listing-footer">
-										<div class="listing-inner clearfix">
-											<div class="img-holder">
-												<a href="#"><img src="{% static 'extra-images/listing-logo12.png' %}" alt=""></a>
-											</div>
-											<div class="text-holder">
-												<p>Cheshire, Chester</p>
-												<p class="deliver-time"><span class="icon-motorcycle2"></span>10
-													min</p>
-												<p class="pickup-time"><span class="icon-clock4"></span>15 min
-												</p>
-												<a href="#" class="ordernow-btn bgcolor">Order Now</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4 col-xs-6 grid-listing-col featured">
-								<div class="img-holder">
-									<figure>
-										<a href="#"><img src="{% static 'extra-images/cover-photo17-359x212.jpg' %}" alt=""></a>
-										<figcaption class="listing-meta">
-											<div class="listing-inner clearfix">
-												<div class="list-option">
-													<a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i></a>
-												</div>
-											</div>
-										</figcaption>
-									</figure>
-									<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
-								</div>
-								<div class="text-holder">
-									<div class="listing-inner">
-										<h4><a href="#">Menu’s</a></h4>
-										<p>Fish Fry, Fresh Juice, Stakes</p>
-										<div class="min-order">
-											Min Order <span class="price">£15.00</span>
-										</div>
-									</div>
-									<div class="listing-footer">
-										<div class="listing-inner clearfix">
-											<div class="img-holder">
-												<a href="#"><img src="{% static 'extra-images/listing-logo15.png' %}" alt=""></a>
-											</div>
-											<div class="text-holder">
-												<p>Cumbria, Aspatria</p>
-												<p class="deliver-time"><span class="icon-motorcycle2"></span>10
-													min</p>
-												<p class="pickup-time"><span class="icon-clock4"></span>15 min
-												</p>
-												<a href="#" class="ordernow-btn bgcolor">Order Now</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4 col-xs-6 grid-listing-col ">
-								<div class="img-holder">
-									<figure>
-										<a href="#"><img src="{% static 'extra-images/cover-photo16-359x212.jpg' %}" alt=""></a>
-										<figcaption class="listing-meta">
-											<div class="listing-inner clearfix">
-												<div class="list-option">
-													<span class="label bgcolor time-label distance-1566" style="display: none;"></span>
-													<a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i></a>
-												</div>
-											</div>
-										</figcaption>
-									</figure>
-									<span class="restaurant-status close"><em class="bookmarkRibbon"></em>Close</span>
-								</div>
-								<div class="text-holder">
-									<div class="listing-inner">
-										<h4><a href="#">Food N&amp;H</a></h4>
-										<p>Beef Roast, Cheese Burger, Doughnut</p>
-										<div class="min-order">
-											Min Order <span class="price">£20.00</span>
-										</div>
-									</div>
-									<div class="listing-footer">
-										<div class="listing-inner clearfix">
-											<div class="img-holder">
-												<a href="#"><img src="{% static 'extra-images/2.png' %}" alt=""></a>
-											</div>
-											<div class="text-holder">
-												<p>Dorset, Bridport</p>
-												<p class="deliver-time"><span class="icon-motorcycle2"></span>10
-													min</p>
-												<p class="pickup-time"><span class="icon-clock4"></span>15 min
-												</p>
-												<a href="#" class="ordernow-btn bgcolor">Order Now</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4 col-xs-6 grid-listing-col featured">
-								<div class="img-holder">
-									<figure>
-										<a href="#"><img src="{% static 'extra-images/cover-photo15-359x212.jpg' %}" alt=""></a>
-										<figcaption class="listing-meta">
-											<div class="listing-inner clearfix">
-												<div class="list-option">
-													<a href="#" class="shortlist-btn" data-toggle="modal" data-target="#sign-in"><i class="icon-heart-o"></i></a>
-												</div>
-											</div>
-										</figcaption>
-									</figure>
-									<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
-								</div>
-								<div class="text-holder">
-									<div class="listing-inner">
-										<h4><a href="#">Restaurant</a></h4>
-										<p>Apple Juice, BB.Q</p>
-										<div class="min-order">
-											Min Order <span class="price">£25.00</span>
-										</div>
-									</div>
-									<div class="listing-footer">
-										<div class="listing-inner clearfix">
-											<div class="img-holder">
-												<a href="#"><img src="{% static 'extra-images/listing-logo13.png' %}" alt=""></a>
-											</div>
-											<div class="text-holder">
-												<p>Bedfordshire, Bedford</p>
-												<p class="deliver-time"><span class="icon-motorcycle2"></span>10
-													min</p>
-												<p class="pickup-time"><span class="icon-clock4"></span>15 min
-												</p>
-												<a href="#" class="ordernow-btn bgcolor">Order Now</a>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							{% endfor %}
+							{% endif %}
+
+
+
+
 						</div>
 					</div>
 				</div>
@@ -544,17 +365,19 @@
 									<div class="list-post featured">
 										<div class="img-holder">
 											<figure>
-												{% if vendor.user_profile.profile_picture %}
-												<a href="#"><img src="{{ vendor.user_profile.profile_picture.url }}" alt=""></a>
-												{% else %}
-												<a href="#"><img src="{% static 'images/default.jpg' %}" alt=""></a>
-												{% endif %}
+												<a href="{% url 'marketplace:vendor_detail' vendor.slug %}">
+													{% if vendor.user_profile.profile_picture %}
+													<img src="{{ vendor.user_profile.profile_picture.url }}" alt="">
+													{% else %}
+													<img src="{% static 'images/default.jpg' %}" alt="">
+													{% endif %}
+												</a>
 											</figure>
 										</div>
 										<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
 										<div class="text-holder">
 											<div class="post-title">
-												<h5><a href="#">{{vendor}}</a>
+												<h5><a href="{% url 'marketplace:vendor_detail' vendor.slug %}">{{vendor}}</a>
 													<span class="sponsored text-color">Sponsored</span>
 												</h5>
 											</div>
@@ -566,6 +389,11 @@
 												<div class="post-time"><i class="icon-clock4"></i>15 min</div>
 												{% if vendor.user_profile.city and vendor.user_profile.rue and vendor.user_profile.country %}
 												<span>{{ vendor.user_profile.city }}, {{ vendor.user_profile.rue }}, {{ vendor.user_profile.country }}</span>
+												{% endif %}
+
+												{% if vendor.kms %}
+												<br>
+												<span><small><b>{{vendor.kms}} km</b> away</small></span>
 												{% endif %}
 											</div>
 										</div>

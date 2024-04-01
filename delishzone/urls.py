@@ -11,6 +11,8 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('marketplace/', include('marketplace.urls')),
 
+    # path('<slug:slug>/', views.foodListing, name='foodListing'),
+
     # CART
     path('cart/', Marketplaceviews.cart, name='cart'),
 

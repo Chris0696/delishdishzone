@@ -21,92 +21,14 @@
 
                         </figure>
                     </div>
-                    <div class="main-location">
+                    <div class="main-location ml-5">
                         <ul>
-                            <li class="location-has-children">
-                                <a href="#"><i class="icon-compass-with-white-needles"></i>Feel Like Eating</a>
-                                <ul>
-
-
-                                        <li><a href="listings.html"><img alt="" src="{% static 'extra-images/food-icon-05-1.png' %}">Apple
-                                                Juice</a> <span></span> </li>
-                                        <li><a href="listings.html"><img alt="" src="{% static 'extra-images/food-icon-19-1.png' %}">BB.Q</a><span></span>
-                                        </li>
-                                        <li><a href="listings.html"><img alt="" src="{% static 'extra-images/food-icon-22-1.png' %}">Beef
-                                                Roast</a> <span></span> </li>
-                                        <li><a href="listings.html"><img alt="" src="{% static 'extra-images/food-icon-10-1.png' %}">Carrot
-                                                Juice</a> <span></span> </li>
-                                        <li><a href="listings.html"><img alt="" src="{% static 'extra-images/food-icon-03-1.png' %}">Cheese
-                                            <span></span></a></li>
-
-                                </ul>
-                            </li>
                             <li class="location-has-children choose-location">
-                                <a href="#"><i class="icon-location-pin2"></i>Choose location</a>
-                                <ul>
-                                    <li class="select-location">
-                                        <div class="foodbakery-locations-fields-group">
-                                            <form action="#"><span id="foodbakery_radius_location_open" class="foodbakery-radius-location"><i class="icon-target5"></i></span>
-                                                <span class="foodbakery-input-cross foodbakery-input-cross-header" style="display:none;">
-                                                    <i class="icon-cross"></i></span>
-                                                <input type="text" value="" name="location" placeholder="All Locations" autocomplete="off">
+                                <form action="#">
+                                    <input type="text" value="" name="location" id="location" placeholder="Your current location" autocomplete="off">
+                                    <span id="foodbakery_radius_location_open" class="foodbakery-radius-location ml-5" onclick="getLocation()"><i class="icon-target5"></i></span>
+                                </form>
 
-                                                <span><span class="loc-icon-holder"><i class="icon-target3"></i></span></span>
-                                                <div class="select-location" id="foodbakery-radius-range622192" style="display: none;">
-                                                    <div class="select-popup popup-open">
-                                                        <a id="location_close_popup622192" href="javascript:0;" class="location-close-popup">
-                                                            <i class="icon-times"></i></a>
-                                                        <input type="hidden" class="foodbakery-radius" name="foodbakery_radius" value="10">
-                                                        <p>Show with in</p>
-                                                         <input id="ex16b313324" type="text" data-value="10" value="10" style="display: none;">
-                                                        <script>
-                                                            jQuery(document).ready(function () {
-                                                                var elem = jQuery("#ex16b313324");
-                                                                if (elem.length != "") {
-                                                                    elem.slider({
-                                                                        step: 1,
-                                                                        min: 0,
-                                                                        max: 500,
-                                                                        value: 10,
-                                                                    });
-                                                                    elem.on("slideStop", function () {
-                                                                        var rang_slider_val = elem.val();
-                                                                        jQuery("#ex16b313324CurrentSliderValLabel").html(rang_slider_val);
-                                                                        jQuery("#range-hidden-foodbakery-radius622192").val(rang_slider_val);
-                                                                        //foodbakery_restaurant_content("622192");
-                                                                    });
-                                                                    elem.on("slide", function () {
-                                                                        jQuery("#ex16b313324CurrentSliderValLabel").html(elem.val());
-                                                                    });
-                                                                }
-
-                                                                $("#foodbakery_radius_location_open").click(function () {
-                                                                $("#foodbakery-radius-range622192").show();
-                                                                });
-                                                                $("#location_close_popup622192").click(function () {
-                                                                    $("#foodbakery-radius-range622192").hide();
-                                                                });
-                                                            });
-                                                        </script>
-                                                        <span>Miles: <span id="ex16b313324CurrentSliderValLabel">10</span></span><br>
-                                                        <p class="my-location">of <i class="cs-color icon-location-arrow"></i><a id="foodbakery-geo-location-all" class="cs-color foodbakery-geo-location313324" href="javascript:void(0)">My
-                                                                location</a></p>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </li>
-                                    <li class="popular-location">Popular Locations</li>
-                                    <li>
-                                        <ul>
-                                            <li><a href="#">Acle</a></li>
-                                            <li><a href="#">Cheshire</a></li>
-                                            <li><a href="#">Crewe</a></li>
-                                            <li><a href="#">Devon</a></li>
-                                            <li><a href="#">England</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </li>
                         </ul>
                     </div>
@@ -163,4 +85,43 @@
     </div>
 </header>
 <!-- Header End -->
+<script>
+    const x = document.getElementById("location");
+	var current_location = sessionStorage.getItem("current_location")
+	if(current_location !== ""){
+		x.value = current_location;
+	}
 
+    function getLocation() {
+
+        if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+        function showPosition(position) {
+        var lng = position.coords.longitude
+        var lat = position.coords.latitude
+
+        // hit AJAX request to googlemaps api endpoint and get the location data using those lat and lng
+        var GOOGLE_API_KEY = "{{ GOOGLE_API_KEY }}"
+        var url = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"+&key="+GOOGLE_API_KEY
+
+
+        $.ajax({
+            url:url,
+            type: "GET",
+            success: function(response){
+
+               var current_location = response.results[0].formatted_address
+               x.value = current_location
+				sessionStorage.setItem("current_location", current_location)
+				window.location = '?lat='+lat+'&lng='+lng
+
+
+            }
+        })
+    }
+</script>
