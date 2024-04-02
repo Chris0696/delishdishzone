@@ -98,6 +98,10 @@ table > tbody > tr > td{
     display: none !important;
 }
 
+.VIpgJd-ZVi9od-aZ2wEe{
+    display: none !important;
+}
+
 .VIpgJd-ZVi9od-l4eHX-hSRGPd{
   display: none;
 }
@@ -169,4 +173,5 @@ table > tbody > tr > td{
 
 table td, table th{
     line-height: 1rem !important;
+    padding: 10px;
 }

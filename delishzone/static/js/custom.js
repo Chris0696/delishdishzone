@@ -20,7 +20,7 @@ function onPlaceChanged (){
         document.getElementById('id_address').placeholder = "Start typing...";
     }
     else{
-        console.log('place name=>', place.name)
+        // console.log('place name=>', place.name)
     }
     // get the address components and assign them to the fields
     // console.log(place);
@@ -246,7 +246,120 @@ $(document).ready(function (){
         }
 
     }
+
+    // ADD OPENING HOUR
+    $('.add_hour').on('click', function(e){
+        e.preventDefault();
+        var day = document.getElementById('id_day').value
+        var from_hour = document.getElementById('id_from_hour').value
+        var to_hour = document.getElementById('id_to_hour').value
+        var is_closed = document.getElementById('id_is_closed').checked
+        var csrf_token = $('input[name=csrfmiddlewaretoken]').val()
+        var url = document.getElementById('add_hour_url').value
+
+        // console.log(day, from_hour, to_hour, is_closed, csrf_token)
+
+        if(is_closed){
+            is_closed = 'True'
+            condition = "day != ''"
+        }else{
+            is_closed = 'False'
+            condition = day !== '' && from_hour !== '' && to_hour !== ''
+        }
+
+        if(eval (condition)) {
+               $.ajax({
+                   type: 'POST',
+                   url: url,
+                   data: {
+                       'day': day,
+                       'from_hour': from_hour,
+                       'to_hour': to_hour,
+                       'is_closed': is_closed,
+                       'csrfmiddlewaretoken': csrf_token,
+                   },
+                   success: function (response) {
+                       if(response.status === 'success'){
+                           if(response.is_closed === 'Closed'){
+                              html = '<tr id="hour-'+response.id+'"><td style="text-align: left"><b>'+response.day+'</b></td><td><span class="badge badge-warning text-uppercase">Closed</span></td><td><a href="#" class="remove_hour" data-url="/accounts/vendor/opening-hours/remove/'+response.id+'/"><i style="margin-top: -02rem; font-size: 15px" class="fa fa-trash text-danger" aria-hidden="true"></i></a></td></tr>';
+                           }else{
+                               html = '<tr id="hour-'+response.id+'"><td style="text-align: left"><b>'+response.day+'</b></td><td>'+response.from_hour+' - '+response.to_hour+'</td><td><a href="#" class="remove_hour" data-url="/accounts/vendor/opening-hours/remove/'+response.id+'/"><i style="margin-top: -02rem; font-size: 15px" class="fa fa-trash text-danger" aria-hidden="true"></i></a></td></tr>';
+                           }
+
+                           $('.opening_hours').append(html)
+                           document.getElementById("opening_hours").reset();
+
+                       }else{
+                           swal({
+                               title: "Oup'sss",
+                               text: response.message,
+                               icon: "error",
+                               buttons: "OK",
+                               dangerMode: true,
+                           })
+                       }
+                   }
+               })
+        }else{
+            swal({
+               title: "No !",
+               text: "Please fill all fields",
+               icon: "info",
+               buttons: "OK",
+               dangerMode: true,
+           })
+        }
+    });
+
+    //Remove opening hour
+    $(document).on('click', '.remove_hour', function(e){
+
+        e.preventDefault();
+        url = $(this).attr('data-url');
+        console.log(url)
+        $.ajax({
+            type: "GET",
+            url: url,
+            success: function (response) {
+                if(response.status == 'success'){
+                    document.getElementById('hour-'+response.id).remove()
+                }
+            }
+        })
+    });
+
+
+
+    // document ready close
 });
+
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      autoDisplay: false,
+      includedLanguages: 'en,fr,de,es',
+
+  }, 'google_translate_element');
+}
+
+function triggerAutoTranslate() {
+  // Detect user's language
+  var userLang = navigator.language || navigator.userLanguage;
+  // Map userLang to a google translate language code
+  // and trigger the translation to that language
+}
+
+// Load the Google Translate script and then apply auto translation
+var googleTranslateScript = document.createElement('script');
+googleTranslateScript.type = 'text/javascript';
+googleTranslateScript.async = true;
+googleTranslateScript.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+document.body.appendChild(googleTranslateScript);
+
+googleTranslateScript.onload = function() {
+    googleTranslateElementInit();
+    triggerAutoTranslate();
+};
 
 
 

@@ -5,7 +5,7 @@ from django.contrib.gis.db.models.functions import Distance
 from django.shortcuts import render, redirect, get_object_or_404
 from menu.models import Category, FoodItem
 from vendor.models import Vendor
-from vendor.views import get_vendor
+
 
 
 # from accounts.utils import userData, registrationUser
@@ -41,7 +41,7 @@ def index(request):
     else:
         vendors = Vendor.objects.filter(is_approved=True, user__is_active=True)[:8]
 
-    fooditems = FoodItem.objects.filter(is_available=True)[:8]
+    fooditems = FoodItem.objects.filter(is_available=True)[:15]
 
     context = {'vendors': vendors,
                'fooditems': fooditems,
@@ -50,18 +50,4 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def foodListing(request):
-    vendor = get_object_or_404(Vendor)
 
-    categories = Category.objects.filter(vendor=vendor).prefetch_related(
-        Prefetch(
-            'fooditems',
-            queryset=FoodItem.objects.filter(is_available=True)
-        )
-    )
-
-    context = {
-        'vendor': vendor,
-        'categories': categories,
-    }
-    return render(request, 'includes/food_listing.html', context)

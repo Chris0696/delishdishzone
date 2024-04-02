@@ -2,11 +2,12 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, HTML
 from django import forms
 from accounts.validators import allow_only_images_validator
-from .models import Vendor
+from .models import Vendor, OpeningHour
 
 
 class VendorForm(forms.ModelForm):
-    restaurant_license = forms.FileField(widget=forms.FileInput(attrs={'class': 'btn btn-info'}), validators=[allow_only_images_validator])
+    restaurant_license = forms.FileField(widget=forms.FileInput(attrs={'class': 'btn btn-info'}),
+                                         validators=[allow_only_images_validator])
 
     class Meta:
         model = Vendor
@@ -17,6 +18,8 @@ class VendorForm(forms.ModelForm):
 
         for name, fiels in self.fields.items():
             self.fields[name].widget.attrs.update({'class': 'upload-btn foodbakery-dev-featured-upload-btn'})
+
+
 '''
             self.helper = FormHelper()
             self.helper.layout = Layout(
@@ -29,3 +32,13 @@ class VendorForm(forms.ModelForm):
             )
 
 '''
+
+
+class OpeningHourForm(forms.ModelForm):
+    class Meta:
+        model = OpeningHour
+        fields = ['day', 'from_hour', 'to_hour', 'is_closed']
+
+
+
+

@@ -257,7 +257,14 @@
 											</div>
 										</figcaption>
 									</figure>
-									<span class="restaurant-status close"><em class="bookmarkRibbon"></em>Close</span>
+
+									{% if food.is_available %}
+									<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Available</span>
+									{% else %}
+									<span class="restaurant-status close"><em class="bookmarkRibbon"></em>Not Available</span>
+									{% endif %}
+
+
 								</div>
 								<div class="text-holder">
 									<div class="listing-inner">
@@ -293,9 +300,6 @@
 							</div>
 							{% endfor %}
 							{% endif %}
-
-
-
 
 						</div>
 					</div>
@@ -374,7 +378,11 @@
 												</a>
 											</figure>
 										</div>
-										<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Open</span>
+										{% if vendor.is_open %}
+										<span class="restaurant-status open"><em class="bookmarkRibbon"></em>Is open</span>
+										{% else %}
+										<span class="restaurant-status close"><em class="bookmarkRibbon"></em>Close</span>
+										{% endif %}
 										<div class="text-holder">
 											<div class="post-title">
 												<h5><a href="{% url 'marketplace:vendor_detail' vendor.slug %}">{{vendor}}</a>

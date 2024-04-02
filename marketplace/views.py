@@ -1,3 +1,5 @@
+from datetime import date, datetime
+
 from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.measure import D
@@ -6,7 +8,7 @@ from django.db.models import Prefetch, Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
-from vendor.models import Vendor
+from vendor.models import Vendor, OpeningHour
 
 from menu.models import Category, FoodItem
 
@@ -37,6 +39,16 @@ def marketplace_detail(request, slug):
         )
     )
 
+    opening_hours = OpeningHour.objects.filter(vendor=vendor).order_by('day', '-from_hour')
+
+    # Check current day's opening hours.
+    today_date = date.today()
+    today = today_date.isoweekday()
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+
+    current_opening_hours = OpeningHour.objects.filter(vendor=vendor, day=today)
+
     if request.user.is_authenticated:
         cartitems = Cart.objects.filter(user=request.user)
     else:
@@ -46,6 +58,10 @@ def marketplace_detail(request, slug):
         'vendor': vendor,
         'categories': categories,
         'cartitems': cartitems,
+        'opening_hours': opening_hours,
+        'current_opening_hours': current_opening_hours,
+        'current_time': current_time
+
     }
     return render(request, 'marketplace/restaurant_detail.html', context)
 
