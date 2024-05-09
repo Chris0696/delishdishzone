@@ -192,10 +192,11 @@ GOOGLE_API_KEY = 'AIzaSyAzCFHjLIhWFL0jVSvUzvRK6ojY4bjMFDA'
 
 wave = os.path.join(BASE_DIR, 'C:/Users/jchri/PycharmProjects/delishdishzoneapp/.venv/Lib/site-packages/osgeo')
 
-os.environ['PATH'] = wave + ';' + os.environ['PATH']
-os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'C:/Users/jchri/PycharmProjects/delishdishzoneapp/.venv/Lib/site-packages/osgeo/data/proj') + ';' + os.environ['PATH']
-
-GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, 'C:/Users/jchri/PycharmProjects/delishdishzoneapp/.venv/Lib/site-packages/osgeo/gdal304.dll')
+if DEBUG == True:
+    os.environ['PATH'] = wave + ';' + os.environ['PATH']
+    os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'C:/Users/jchri/PycharmProjects/delishdishzoneapp/.venv/Lib/site-packages/osgeo/data/proj') + ';' + os.environ['PATH']
+    
+    GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, 'C:/Users/jchri/PycharmProjects/delishdishzoneapp/.venv/Lib/site-packages/osgeo/gdal304.dll')
 
 
 PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
