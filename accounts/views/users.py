@@ -7,7 +7,9 @@ from django.utils.http import urlsafe_base64_decode
 
 from ..models import User
 from ..utils import detectUser, send_verification_email
+from orders.models import Order
 from vendor.models import Vendor
+import datetime
 
 
 # Restrict the vendor from accessing the customer page
@@ -86,14 +88,45 @@ def myAccount(request):
 @login_required(login_url='accounts:loginUser')
 @user_passes_test(check_role_customer)
 def custDashboard(request):
-    return render(request, 'accounts/custdashboard.html')
+    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-created_at')
+    recent_orders = orders[:5]
+    context = {
+        'orders': orders,
+        'orders_count': orders.count(),
+        'recent_orders': recent_orders,
+    }
+    return render(request, 'accounts/custdashboard.html', context)
 
 
 @login_required(login_url='accounts:loginUser')
 @user_passes_test(check_role_vendor)
 def vendorDashboard(request):
+    vendor = Vendor.objects.get(user=request.user)
+    orders = Order.objects.filter(vendors__in=[vendor.id]).order_by('-created_at')
+    recent_orders = orders[:5]
 
-    return render(request, 'accounts/vendordashboard.html')
+    # Current month's revenue
+    current_month = datetime.datetime.now().month
+    current_month_order = orders.filter(vendors__in=[vendor.id], created_at__month=current_month)
+    current_month_revenue = 0
+    for i in current_month_order:
+        current_month_revenue += i.get_total_by_vendor()['grand_total']
+    # print("Revenue du mois = ", current_month_revenue)
+
+    # Total revenue
+
+    total_revenue = 0
+    for i in orders:
+        total_revenue += i.get_total_by_vendor()['grand_total']
+
+    context = {
+        'orders': orders,
+        'orders_count': orders.count(),
+        'recent_orders': recent_orders,
+        'total_revenue': total_revenue,
+        'current_month_revenue': current_month_revenue,
+    }
+    return render(request, 'accounts/vendordashboard.html', context)
 
 
 def forgotPassword(request):
@@ -154,11 +187,3 @@ def resetPassword(request):
             messages.error(request, 'Password must be at least 8 characters long!')
             return redirect('accounts:resetPassword')
     return render(request, 'accounts/reset_password.html')
-
-
-
-
-
-
-
-

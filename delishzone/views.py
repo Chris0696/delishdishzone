@@ -7,7 +7,6 @@ from menu.models import Category, FoodItem
 from vendor.models import Vendor
 
 
-
 # from accounts.utils import userData, registrationUser
 
 def get_or_set_current_location(request):
@@ -48,6 +47,3 @@ def index(request):
                }
 
     return render(request, 'index.html', context)
-
-
-

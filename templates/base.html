@@ -73,6 +73,24 @@
 	{% endif %}
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<script src="{% static 'js/custom.js' %}"></script>
+
+	<!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id={{ PAYPAL_CLIENT_ID }}&currency=USD"></script>
+
+	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+	<!-- Include the fedapay JavaScript SDK -->
+	<script src="https://cdn.fedapay.com/checkout.js?v=1.1.7"></script>
+
+	<!-- Include Datatables plugin script and css -->
+	<link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+	<script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+	<script>
+		$(document).ready( function () {
+			$('#myOrdersTable').DataTable();
+		} );
+	</script>
+
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -85,7 +103,7 @@
 
 <body>
     <!-- LOAD NAVBAR HERE -->
-	{% include 'includes/simplenavbar.html' %}
+	{% include 'includes/simplenavbar2.html' %}
 
 
 

@@ -15,6 +15,9 @@ from menu.models import Category, FoodItem
 from .context_processors import get_cart_counter, get_cart_amounts
 from .models import Cart
 from accounts.views.users import check_role_customer
+from orders.forms import OrderForm
+
+from accounts.models import UserProfile
 
 
 def marketplace(request):
@@ -188,3 +191,33 @@ def search(request):
         'source_location': address,
     }
     return render(request, 'marketplace/listing.html', context)
+
+
+@login_required(login_url='accounts:loginUser')
+def checkout(request):
+    cart_items = Cart.objects.filter(user=request.user).order_by('created')
+    cart_count = cart_items.count()
+    if cart_count <= 0:
+        return redirect('marketplace:listing')
+
+    user_profile = UserProfile.objects.get(user=request.user)
+
+    default_values = {
+        'first_name': request.user.first_name,
+        'last_name': request.user.last_name,
+        'phone_number': request.user.phone_number,
+        'email': request.user.email,
+        'address': user_profile.address,
+        'country': user_profile.country,
+        'departement': user_profile.departement,
+        'city': user_profile.city,
+        'rue': user_profile.rue,
+    }
+
+    form = OrderForm(initial=default_values)
+
+    context = {
+        'form': form,
+        'cart_items': cart_items,
+    }
+    return render(request, 'marketplace/checkout.html', context)

@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load filters %}
+{% block content %}
+
+
+<!-- Main Section Start -->
+<div class="main-section pt-5">
+
+	<div class="page-section">
+		<div class="container">
+			<div class="row">
+				<form action="{% url 'place_order' %}" method="POST">
+				{% csrf_token %}
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="tabs-holder horizontal">
+						<ul class="stickynav-tabs nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-shopping-cart text-danger"></i>Billing Adress</a></li>
+						</ul>
+
+						<div class="tab-content">
+							<div id="home" class="tab-pane in active">
+								<div class="menu-itam-holder">
+
+									<div id="menu-item-list-6272" class="menu-itam-list">
+
+											<div class="row">
+												<div class="form-group col-md-6 col-sm-12 col-lg-6">
+													First Name: {{ form.first_name }}
+												</div>
+												<div class="form-group col-md-6 col-sm-12 col-lg-6">
+													Last Name: {{ form.last_name }}
+												</div>
+												<div class="form-group col-md-6 col-sm-12 col-lg-6">
+													Phone Number: {{ form.phone_number }}
+												</div>
+												<div class="form-group col-md-6 col-sm-12 col-lg-6">
+													Email: {{ form.email }}
+												</div>
+												<div class="form-group col-md-12 col-sm-12 col-lg-12">
+													Adress: {{ form.address }}
+												</div>
+												<div class="form-group col-md-6 col-sm-12 col-lg-6">
+													Country: {{ form.country }}
+												</div>
+												<div class="form-group col-md-6 col-sm-12 col-lg-6">
+													Departement: {{ form.departement }}
+												</div>
+
+												<div class="form-group col-md-6 col-sm-12 col-lg-6">
+													City: {{ form.city }}
+												</div>
+												<div class="form-group col-md-6 col-sm-12 col-lg-6">
+													Rue: {{ form.rue }}
+												</div>
+											</div>
+										<br>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-----Your Oders Section ------->
+
+				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+					<div class="tabs-holder horizontal">
+						<ul class="stickynav-tabs nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#home"><i class="icon- icon-room_service"></i>Your Oders</a></li>
+
+						</ul>
+						<div class="tab-content">
+							<div id="order" class="tab-pane in active">
+								<div class="menu-itam-holder">
+
+
+
+									<div class="user-order">
+
+							<div id="menu-item-list-6272" class="menu-itam-list">
+
+								<ul>
+										{% for item in cart_items %}
+										<li id="cart-item-{{item.id}}">
+											<h6>{{ item.fooditem }} </h6>
+											<div class="image-holder"> <a href="{{ item.fooditem.image.url }}"><img src="{{item.fooditem.image.url}}" alt="Food Image"></a></div>
+
+											<div class="text-holder">
+												<h6><span class="text-lowercase">x {{ item.quantity }} QTY</span></h6>
+
+												<a href="{% url 'marketplace:vendor_detail' item.fooditem.vendor.slug %}" class="badge badge-warning">{{ item.fooditem.vendor }}</a>
+											</div>
+
+											<div class="price-holder">
+												<label class="price">{{ item.fooditem.price }}Fcfa</label>
+											</div>
+
+										</li>
+										{% endfor %}
+								</ul>
+
+							</div>
+
+							<div id="dev-menu-orders-list">
+
+								<div class="price-area dev-menu-price-con">
+									<ul>
+										<li>
+											Subtotal
+											<span class="price">
+												<em id="subtotal" class="dev-menu-subtotal">{{ subtotal }}</em>
+												FCFA
+											</span>
+										</li>
+										{% for key, value in delivery_dict.items %}
+											{% for i, j in value.items %}
+												<li class="restaurant-fee-con">
+													<span class="fee-title">
+														{{ key }}
+													</span>
+													<span class="price">
+														<em id="pick_up" class="dev-menu-charges">{{ j }}</em>
+														FCFA
+													</span>
+												</li>
+											{% endfor %}
+										{% endfor %}
+
+										{% for key, value in tax_dict.items %}
+											{% for i, j in value.items %}
+												<li>{{ key }} <small></small>
+													<span class="price">
+														<em id="tax-{{ key }}" class="dev-menu-vtax">{{ j }}</em>
+														FCFA
+													</span>
+												</li>
+											{% endfor %}
+										{% endfor %}
+
+									</ul>
+									<p class="total-price">
+										TOTAL
+										<span class="price">
+											<em id="grand_total" class="dev-menu-grtotal">{{ grand_total }}</em>
+											FCFA
+										</span>
+									</p>
+								</div>
+							</div>
+							<h5>SELECT PAYMENT METHOD</h5>
+							<div class="pay-option dev-order-pay-options">
+								<ul>
+									<li>
+										<label>
+											<input type="radio" name="payment_method" value="PayPal">
+											<img src="{% static 'images/Paypal.png' %}" alt="Paypal" width="100">
+										</label>
+									</li>
+
+									<li>
+										<label>
+											<input type="radio" name="payment_method" value="RazorPay">
+											<img src="{% static 'images/razorpay_logo.png' %}" alt="RazorPay" width="100">
+										</label>
+
+									</li>
+
+									<li>
+										<label>
+											<input type="radio" name="payment_method" value="MomoPay">
+											<img src="{% static 'images/visa-moov-et-MTN.png' %}" alt="FedaPay" width="70">
+										</label>
+
+									</li>
+									<li>
+										<label>
+											<input type="radio" name="payment_method" value="Stripe">
+											<img src="{% static 'images/Stripe-logo.png' %}" alt="Stripe" width="70">
+										</label>
+
+									</li>
+								</ul>
+
+							</div>
+
+							<span class="text-danger" id="payment-method-error"></span>
+
+							<button onclick="return payMethodConfirm();" type="submit" class="menu-order-confirm">PLACE ORDER</button>
+							<span class="menu-loader"></span>
+
+								</div>
+							</div>
+						</div>
+
+						</div>
+					</div>
+
+				</div>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Main Section End -->
+
+<script>
+	function payMethodConfirm() {
+		var payMethod = $("input[name='payment_method']:checked").val()
+
+
+		if(!payMethod){
+			$('#payment-method-error').html("Select Payment Method !");
+			return false;
+		}else{
+
+			var conf = confirm('You have select '+payMethod+' as your preferred payment method. \nClick "Ok" to contiue.')
+			if(conf === true){
+				return true;
+			}else{
+				return false;
+			}
+		}
+	}
+
+	$('input[name=payment_method]').on('change', function () {
+		$('#payment-method-error').html("");
+	})
+</script>
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

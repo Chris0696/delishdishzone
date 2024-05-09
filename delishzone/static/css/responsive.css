@@ -367,7 +367,7 @@
 .logged-in .transparent-header .main-header .wide .main-nav { top: 25px; }
 .listing.fancy .text-holder { padding-left: 15px; }
 .main-post .media-holder.center figure img { max-width: 100%; }
-.transparent-header .main-location { max-width: 100%; }
+.transparent-header .main-location { max-width: 100%; margin-top: 15px !important;}
 .nutri-info-icons li { width: 16%; }
 .testimonial.fancy{ width:100%; }
 .testimonial .text-holder p{ padding: 20px; }

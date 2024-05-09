@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db.models.fields.related import ForeignKey, OneToOneField
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+import uuid
 from django.contrib.gis.db import models as gismodels
 from django.contrib.gis.geos import Point
 
@@ -101,6 +102,8 @@ class UserProfile(models.Model):
     location = gismodels.PointField(blank=True, null=True, srid=4326)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True,
+                          primary_key=True, editable=False)
 
     # def full_address(self):
     # return f'''{self.address}, {self.city}, {self.country}'''
@@ -116,3 +119,6 @@ class UserProfile(models.Model):
             self.location = Point(float(self.longitude), float(self.latitude))
             return super(UserProfile, self).save(*args, **kwargs)
         return super(UserProfile, self).save(*args, **kwargs)
+
+
+

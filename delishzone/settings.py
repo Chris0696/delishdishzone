@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'vendor.apps.VendorConfig',
     'menu.apps.MenuConfig',
     'marketplace.apps.MarketplaceConfig',
+    'customers.apps.CustomersConfig',
+    'orders.apps.OrdersConfig',
 
     'crispy_forms',
     'crispy_bootstrap4',
@@ -56,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'orders.request_object.RequestObjectMiddleware'  # Custom middleware created to access the request object in models.py
 ]
 
 ROOT_URLCONF = 'delishzone.urls'
@@ -76,6 +79,8 @@ TEMPLATES = [
                 'accounts.context_processors.get_google_api',
                 'marketplace.context_processors.get_cart_counter',
                 'marketplace.context_processors.get_cart_amounts',
+                'accounts.context_processors.get_paypal_client_id',
+
                 # 'delishzone.context_processors.get_or_set_current_location',
             ],
         },
@@ -191,4 +196,11 @@ os.environ['PATH'] = wave + ';' + os.environ['PATH']
 os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'C:/Users/jchri/PycharmProjects/delishdishzoneapp/.venv/Lib/site-packages/osgeo/data/proj') + ';' + os.environ['PATH']
 
 GDAL_LIBRARY_PATH = os.path.join(BASE_DIR, 'C:/Users/jchri/PycharmProjects/delishdishzoneapp/.venv/Lib/site-packages/osgeo/gdal304.dll')
+
+
+PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
+
+FEDAPAY_CLIENT_ID = 'sk_sandbox_imcFDsmu4zDEjJnxLEu6DvBN'
+
+SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 

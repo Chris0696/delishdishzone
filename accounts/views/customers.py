@@ -34,15 +34,18 @@ def registerUser(request):
             user.save()
 
             # Send Verification email
+            try:
+                mail_subject = 'Please activate your account'
+                mail_template = 'accounts/emails/account_verification_email.html'
 
-            mail_subject = 'Please activate your account'
-            mail_template = 'accounts/emails/account_verification_email.html'
+                send_verification_email(request, user, mail_subject, mail_template)
 
-            send_verification_email(request, user, mail_subject, mail_template)
+                messages.success(request, "Your account has been successfully registered! Please check your email.")
 
-            messages.success(request, "Your account has been successfully registered! Please check your email.")
-
-            return redirect('accounts:registerUser')
+                return redirect('accounts:loginUser')
+            except:
+                messages.error(request, 'Email verification could not be sent. Please try again')
+                return redirect('accounts:registerUser')
         else:
             print('invalid form')
             print(form.errors)

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load filters %}
+{% block content %}
+
+<div class="container mt-5 mb-5">
+    <div class="justify-content-center row">
+        <div class="col-md-8">
+            <div class="bg-white p-3">
+                <img src="{% static 'extra-images/main-delish-dish-zone2.png' %}" alt="DDZone Logo">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="mt-2 mb-3">Thank you for your order.</h4>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <p class="mb-0">{{ order.name }}</p>
+                        <p class="mb-0">{{ order.address }}</p>
+                        <p class="mb-0">{{ order.phone }}</p>
+                        <p class="mb-0">{{ order.email }}</p>
+                    </div>
+                </div>
+                <h6>Hello {{ order.name }},</h6> <span>Thank you for your Order. Review your order details below.</span>
+                <hr>
+
+                <div class="d-flex justify-content-between">
+
+                    <div>
+                        <span class="d-block">Order Date: <span class="font-weight-bold">{{ order.created_at }}</span></span>
+                    </div>
+
+                    <div>
+                        <span class="d-block">Order No: <span class="font-weight-bold">{{ order.order_number }}</span></span>
+                    </div>
+
+                    <div>
+                        <span class="d-block">Payment Method: <span class="font-weight-bold">{{ order.payment_method }}</span></span>
+                    </div>
+
+                    <div>
+                        <span class="d-block">Transaction Id: <span class="font-weight-bold">{{ order.payment.transaction_id }}</span></span>
+                    </div>
+                </div>
+                <hr>
+
+                <table class="table">
+                    <tbody>
+                        {% for item in ordered_food %}
+                        <tr>
+                            <td><img src="{{ item.fooditem.image.url }}" width="60" alt="Food Image"></td>
+                            <td>
+                                <p class="mb-0"><b>{{ item.fooditem }}</b></p>
+                                <a class="badge badge-warning" href="{% url 'marketplace:vendor_detail' item.fooditem.vendor.slug %}">{{ item.fooditem.vendor.restaurant_name}}</a>
+                            </td>
+                            <td>x{{ item.quantity }}</td>
+                            <td>{{ item.fooditem.price }} FCFA</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <div class="row mt-5">
+                    <div class="d-flex justify-content-center col-md-6">
+                        <img src="{% static 'images/paid.png' %}" width="200" alt="">
+                    </div>
+
+                    <div class="col-md-6">
+                        <ul>
+                            <li style="list-style-type: none;">
+                                Subtotal
+                                <span class="price float-right">
+                                    <span id="subtotal">{{ subtotal }}</span>
+                                    <span class="currency">FCFA</span>
+                                </span>
+                            </li>
+
+                            {% for key, value in tax_data.items %}
+                                {% for i, j in value.items %}
+                                    <li style="list-style-type: none;">
+                                        {{ key }} <small></small>
+                                        <span class="price float-right">
+                                            <span id="tax-{{ key }}">{{ j }}</span>
+                                            <span class="currency">FCFA</span>
+                                        </span>
+                                    </li>
+                                {% endfor %}
+                            {% endfor %}
+
+
+                            <li style="list-style-type: none; font-weight: 600;">
+                                TOTAL
+                                <span class="price float-right">
+                                    <span id="total">{{ order.total }}</span>
+                                    <span class="currency">FCFA</span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <span class="d-block font-weight-bold">Thanks for ordering with us.</span>
+                        <span>DDZone Team</span>
+                    </div>
+                    <div class="d-flex justify-content-end align-items-end">
+                        <span class="d-block font-weight-bold">Need help?</span>
+                        <span>Call or WhatsApp <a href="https://wa.me/22958187519">+22958187519</a> </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -42,7 +42,7 @@ table > tbody > tr > td{
     padding: 7px 15px 7px 15px;
 }
 
-/* hide radio button */
+/* hide radio button
 .payment-method [type=radio]{
     position: absolute;
     opacity: 0;
@@ -50,17 +50,17 @@ table > tbody > tr > td{
     height: 0;
 }
 
-/* Image style */
+/* Image style
 .payment-method [type=radio] + img{
     cursor: pointer;
     padding: 5px;
 }
 
-/* Checked style */
+/* Checked style
 .payment-method [type=radio]:checked + img{
     outline: 2px solid #ff0000;
 }
-
+*/
 
 /* google translate */
 
@@ -142,6 +142,11 @@ table > tbody > tr > td{
     width: 16px;
 }
 
+.prix{
+    display: block;
+    padding-bottom: 5rem;
+    margin-left: 5em;
+    }
 
 @media only screen and (max-width: 480px) {
     a.get-start-btn{
@@ -152,8 +157,13 @@ table > tbody > tr > td{
     .main-search-bar{
         padding-top: 100px !important;
         padding-bottom: 50px !important;
-        background-position: left !important;
+
     }
+
+    .search_button{
+        margin-top: 15px;
+    }
+
     .user-dashboard{
         width: 100% !important;
     }
@@ -172,6 +182,6 @@ table > tbody > tr > td{
 }
 
 table td, table th{
-    line-height: 1rem !important;
+    line-height: 2rem !important;
     padding: 10px;
 }

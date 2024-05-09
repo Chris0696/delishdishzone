@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+
+{% include 'includes/alerts.html' %}
+
+<!-- Main Section Start -->
+
+<!-- Main Section Start -->
+<div class="main-section">
+	{% include 'includes/customers_cover.html' %}
+	<div class="page-section account-header buyer-logged-in">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+					{% include 'includes/c_sidebar.html' %}
+				</div>
+				<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+					<div class="user-dashboard loader-holder">
+						<div class="user-holder">
+							<div class="user-profile">
+								<div class="element-title has-border">
+									<h5>Account Settings</h5>
+								</div>
+								<div class="row">
+									<form id="publisher_profile" action="{% url 'accounts:cprofile' %}" method="POST" enctype="multipart/form-data">
+										{% csrf_token %}
+										<div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+											<div class="row">
+												<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+													<div class="field-holder">
+														{{ user_form.last_name | as_crispy_field }}
+													</div>
+												</div>
+												<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+													<div class="field-holder">
+														{{ user_form.first_name | as_crispy_field }}
+													</div>
+												</div>
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="field-holder">
+														{{ user_form.email | as_crispy_field }}
+													</div>
+												</div>
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="field-holder">
+														{{ user_form.phone_number | as_crispy_field }}
+													</div>
+												</div>
+
+												<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+													<div class="field-holder">
+														<label>Country *</label>
+														{{ profile_form.country | as_crispy_field }}
+													</div>
+												</div>
+
+												<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+													<div class="field-holder">
+														<label>Department *</label>
+														{{ profile_form.departement | as_crispy_field }}
+													</div>
+												</div>
+
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<div class="field-holder">
+														<label>Adress</label>
+														{{ profile_form.address | as_crispy_field }}
+													</div>
+												</div>
+
+											</div>
+										</div>
+										<div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+											<div class="user-profile-images">
+												<div class="current-img">
+													<div class="row mt">
+														<div id="cropContainerModal" data-def-img="assets/extra-images/team-medium-img1.jpg" data-img-type="default">
+															<figure>
+																{% if profile.profile_picture %}
+																<img class="thumbnail" src="{{profile.profile_picture.url}}" alt="Profile Picture">
+																{% else %}
+																<img class="thumbnail" src="{% static 'images/default.jpg' %}" alt="Profile Picture">
+																{% endif %}
+															</figure>
+														</div>
+													</div>
+													<span style="margin-bottom: 6rem">Upload a profile picture</span>
+												</div>
+
+												<div class="upload-gallery mt-25" style="margin-bottom: 5rem">
+													{{ profile_form.profile_picture }}
+													<input class="foodbakery-dev-gallery-uploader" style="display:none;" type="file">
+												</div>
+											</div>
+
+											<div class="user-profile-images">
+												<div class="current-img">
+													<div class="row mt">
+														<div id="cropContainerModal" data-def-img="assets/extra-images/team-medium-img1.jpg" data-img-type="default">
+															<figure>
+																{% if profile.cover_photo %}
+																<img class="thumbnail" src="{{profile.cover_photo.url}}" alt="Cover Photo">
+																{% else %}
+																<img class="thumbnail" src="{% static 'images/default.jpg' %}" alt="Cover Photo">
+																{% endif %}
+															</figure>
+														</div>
+													</div>
+													<span style="margin-bottom: 6rem">Update your cover image</span>
+												</div>
+
+												<div class="upload-gallery mt-25" style="margin-bottom: 5rem">
+													{{ profile_form.cover_photo }}
+													<input class="foodbakery-dev-gallery-uploader" style="display:none;" type="file">
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+											<div class="opt-conts">
+												<div class="row">
+
+													<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+														<div class="field-holder">
+															<label>City</label>
+															{{ profile_form.city | as_crispy_field }}
+														</div>
+													</div>
+
+													<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+														<div class="field-holder">
+															<label>Rue</label>
+															{{ profile_form.rue|as_crispy_field }}
+														</div>
+													</div>
+
+													<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+														<div class="field-holder">
+															<label>Latitude</label>
+															{{ profile_form.latitude | as_crispy_field }}
+														</div>
+													</div>
+													<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+														<div class="field-holder">
+															<label>Longitude</label>
+															{{ profile_form.longitude | as_crispy_field }}
+														</div>
+													</div>
+
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+														<div class="cs-map-section">
+															<img style="width:100%;height: 100%;" src="{% static 'extra-images/map-location.png' %}" alt="">
+														</div>
+													</div>
+													<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+														<div class="field-holder">
+															<div class="payment-holder input-button-loader">
+																<input class="update-restaurant" type="submit" value="Update My Account">
+															</div>
+														</div>
+
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+		<!-- Main Section End -->
+
+
+
+
+
+{% endblock content %}

@@ -1,3 +1,5 @@
+import socket
+
 from django.contrib import messages, auth
 from django.shortcuts import render, redirect
 from django.template.defaultfilters import slugify
@@ -37,14 +39,18 @@ def registerVendor(request):
             vendor.save()
 
             # Send Verification email
-            mail_subject = 'Please activate your account'
-            mail_template = 'accounts/emails/account_verification_email.html'
+            try:
+                mail_subject = 'Please activate your account'
+                mail_template = 'accounts/emails/account_verification_email.html'
 
-            send_verification_email(request, user, mail_subject, mail_template)
+                send_verification_email(request, user, mail_subject, mail_template)
 
-            messages.success(request, 'Your restaurant account has been successfully registered! Please check your '
-                                      'email.')
-            return redirect('accounts:registerVendor')
+                messages.success(request, 'Your restaurant account has been successfully registered! Please check your '
+                                          'email.')
+                return redirect('accounts:loginUser')
+            except:
+                messages.error(request, 'Email verification could not be sent. Please try again')
+                return redirect('accounts:registerVendor')
         else:
             print('invalid form')
             print(form.errors)
