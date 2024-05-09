@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: delishzone
+    buildCommand: "./build.sh"
+    env: python
+    startCommand: "gunicorn delishzone.wsgi:application"
